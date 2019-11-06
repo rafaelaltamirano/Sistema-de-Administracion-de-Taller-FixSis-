@@ -20,11 +20,16 @@ namespace TPCCC_ALTAMIRANO.DAL
         public DbSet<Marca> Marca { get; set; }
         public DbSet<Sucursal> Sucursal { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-       
+        public DbSet<Proveedor> Proveedor { get; set; }
+        public DbSet<Servicio> Servicio { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+      
+
+        
     }
 }

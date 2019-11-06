@@ -84,3 +84,4 @@ C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALT
 C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALTAMIRANO.csproj.CopyComplete
 C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALTAMIRANO.dll
 C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALTAMIRANO.pdb
+C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALTAMIRANO.csprojAssemblyReference.cache
