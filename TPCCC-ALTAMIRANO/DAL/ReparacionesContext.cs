@@ -22,6 +22,7 @@ namespace TPCCC_ALTAMIRANO.DAL
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Proveedor> Proveedor { get; set; }
         public DbSet<Servicio> Servicio { get; set; }
+        public DbSet<Repuesto> Repuesto { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
