@@ -29,8 +29,11 @@
         @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @*@Html.ListBoxFor(model => model.Marca.SelectedMarcas, Model.Marca.ListMarcas, new { @class = "form-control" })*@
-            @Html.DropDownList("Id", ViewBag.ListaMarcas as SelectList, "seleccionar",  new { @class = "form-control" })
-            
+            @Html.DropDownList("Id", ViewBag.ListaMarcas as SelectList, "seleccionar", new { @class = "form-control" })
+            @* @Html.ActionLink( " Agregar", "Create", "Marca", // or to pass some value -> routeValues: new { id = 1 },*@
+            @Html.ActionLink("Agregar", "Create", "Marcas", null, new{ @class = "btn btn-primary" })
+
+
         </div>
     </div>
 

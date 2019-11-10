@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using TPCCC_ALTAMIRANO.DAL;
 using TPCCC_ALTAMIRANO.Models;
 
+
 namespace TPCCC_ALTAMIRANO.Controllers
 {
     public class RepuestosController : Controller
@@ -53,11 +54,12 @@ namespace TPCCC_ALTAMIRANO.Controllers
             Repuesto auxRepuesto = new Repuesto();
             if (ModelState.IsValid)
             {
-                auxRepuesto.Marca = new Marca();
-                auxRepuesto.Marca.ID= marca.ID;
+                auxRepuesto.Marca = marca;
                 auxRepuesto.Nombre = repuesto.Nombre;
-               
                 db.Repuesto.Add(auxRepuesto);
+                db.Marca.Attach(marca);// esto hace que marca no sea modificado en la base de datos
+                //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
+                //                                 EntityState.Unchanged);una prueba fallida
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
