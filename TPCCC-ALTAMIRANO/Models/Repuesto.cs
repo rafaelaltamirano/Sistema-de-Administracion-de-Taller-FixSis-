@@ -12,5 +12,6 @@ namespace TPCCC_ALTAMIRANO.Models
         [Display(Name = "Nombre Repuesto")]
         public string Nombre { get; set; }
         public Marca Marca { get; set; }
-    }
+        public Proveedor Proveedor { get; set; }
+    }   
 }

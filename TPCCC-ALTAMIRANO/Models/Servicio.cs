@@ -8,12 +8,10 @@ namespace TPCCC_ALTAMIRANO.Models
 {
     public class Servicio
     {
-        public int Id { get; set; }
-        
+        public int Id { get; set; }        
         public string Nombre { get; set; }
-
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; }       
         public Repuesto Repuesto { get; set; }
-
+        public string Costo { get; set; }
     }
 }

@@ -40,7 +40,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos/Create
         public ActionResult Create()
         {
-            ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");           
+            ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");
+            ViewBag.ListaProveedores = new SelectList(db.Proveedor.ToList(), "ID", "Nombre");
+           
             return View();
         }
 
@@ -49,13 +51,15 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Repuesto repuesto,[Bind(Include = "ID")] Marca marca)// me trae solo el id de marca
+        public ActionResult Create(Repuesto repuesto,[Bind(Include = "ID")] Marca marca, [Bind(Include = "ID")] Proveedor proveedor)// me trae solo el id de marca
         {
             Repuesto auxRepuesto = new Repuesto();
             if (ModelState.IsValid)
             {
                 auxRepuesto.Marca = marca;
                 auxRepuesto.Nombre = repuesto.Nombre;
+                
+                auxRepuesto.Proveedor = proveedor;
                 db.Repuesto.Add(auxRepuesto);
                 db.Marca.Attach(marca);// esto hace que marca no sea modificado en la base de datos
                 //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,

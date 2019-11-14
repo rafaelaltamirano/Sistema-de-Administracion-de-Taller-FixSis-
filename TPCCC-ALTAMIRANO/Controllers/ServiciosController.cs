@@ -39,6 +39,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Servicios/Create
         public ActionResult Create()
         {
+            ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "ID", "Nombre");
             return View();
         }
 
@@ -46,22 +47,27 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion")] Servicio servicio)
+        [ValidateAntiForgeryToken]       
+        public ActionResult Create(Servicio servicio, [Bind(Include = "ID")] Repuesto repuesto)// me trae solo el id de marca
         {
-
+            Servicio auxServicio = new Servicio();
             if (ModelState.IsValid)
             {
-                //servicio.Repuesto.Marca= 
-                db.Servicio.Add(servicio);
-                
+                auxServicio.Nombre = servicio.Nombre;
+                auxServicio.Descripcion = servicio.Descripcion;
+                auxServicio.Repuesto = repuesto;
+                auxServicio.Costo = servicio.Costo;
+
+                db.Servicio.Add(auxServicio);
+                db.Repuesto.Attach(repuesto);// esto hace que marca no sea modificado en la base de datos
+                //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
+                //                                 EntityState.Unchanged);una prueba fallida
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(servicio);
+            return View(repuesto);
         }
-
         // GET: Servicios/Edit/5
         public ActionResult Edit(int? id)
         {
