@@ -30,8 +30,6 @@ namespace TPCCC_ALTAMIRANO.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-      
-
-        
+        public System.Data.Entity.DbSet<TPCCC_ALTAMIRANO.Models.Clientes> Clientes { get; set; }
     }
 }

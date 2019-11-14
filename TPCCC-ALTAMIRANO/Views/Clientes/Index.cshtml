@@ -1,14 +1,14 @@
-﻿@model IEnumerable<TPCCC_ALTAMIRANO.Models.Proveedor>
+﻿@model IEnumerable<TPCCC_ALTAMIRANO.Models.Clientes>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Administrar Proveedores</h2>
+<h2>Administrador de Clientes</h2>
 
 <p>
-    @Html.ActionLink("Nuevo Proveedor", "Create")
+    @Html.ActionLink("Nuevo Cliente", "Create")
 </p>
 <table class="table">
     <tr>
@@ -16,19 +16,16 @@
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cuit)
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Direccion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
         </th>
         <th></th>
     </tr>
@@ -39,19 +36,16 @@
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cuit)
+            @Html.DisplayFor(modelItem => item.Apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefono)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Direccion)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
         </td>
         <td>
             @Html.ActionLink("Modificar", "Edit", new { id=item.Id }) |
