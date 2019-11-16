@@ -18,7 +18,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Clientes.ToList());
+            return View(db.Cliente.ToList());
         }
 
         // GET: Clientes/Details/5
@@ -28,12 +28,12 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clientes clientes = db.Clientes.Find(id);
-            if (clientes == null)
+            Cliente cliente = db.Cliente.Find(id);
+            if (cliente == null)
             {
                 return HttpNotFound();
             }
-            return View(clientes);
+            return View(cliente);
         }
 
         // GET: Clientes/Create
@@ -47,16 +47,16 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Clientes clientes)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(clientes);
+                db.Cliente.Add(cliente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(clientes);
+            return View(cliente);
         }
 
         // GET: Clientes/Edit/5
@@ -66,12 +66,12 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clientes clientes = db.Clientes.Find(id);
-            if (clientes == null)
+            Cliente cliente = db.Cliente.Find(id);
+            if (cliente == null)
             {
                 return HttpNotFound();
             }
-            return View(clientes);
+            return View(cliente);
         }
 
         // POST: Clientes/Edit/5
@@ -79,15 +79,15 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Clientes clientes)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clientes).State = EntityState.Modified;
+                db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(clientes);
+            return View(cliente);
         }
 
         // GET: Clientes/Delete/5
@@ -97,12 +97,12 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clientes clientes = db.Clientes.Find(id);
-            if (clientes == null)
+            Cliente cliente = db.Cliente.Find(id);
+            if (cliente == null)
             {
                 return HttpNotFound();
             }
-            return View(clientes);
+            return View(cliente);
         }
 
         // POST: Clientes/Delete/5
@@ -110,8 +110,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Clientes clientes = db.Clientes.Find(id);
-            db.Clientes.Remove(clientes);
+            Cliente cliente = db.Cliente.Find(id);
+            db.Cliente.Remove(cliente);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

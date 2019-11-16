@@ -1,0 +1,123 @@
+﻿@model TPCCC_ALTAMIRANO.Models.Ingreso
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ingreso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DireccionCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seguimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seguimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FallaCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FallaCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassEquipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassEquipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accesorios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accesorios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FallaDetectada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FallaDetectada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReparacionRealizada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReparacionRealizada)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -23,6 +23,9 @@ namespace TPCCC_ALTAMIRANO.DAL
         public DbSet<Proveedor> Proveedor { get; set; }
         public DbSet<Servicio> Servicio { get; set; }
         public DbSet<Repuesto> Repuesto { get; set; }
+        public DbSet<Estado> Estado { get; set; }
+        public DbSet<Ingreso> Ingreso { get; set; }
+        //public DbSet<Cliente> Cliente { get; set; }
         public object ObjectStateManager { get; internal set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -30,6 +33,8 @@ namespace TPCCC_ALTAMIRANO.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public System.Data.Entity.DbSet<TPCCC_ALTAMIRANO.Models.Clientes> Clientes { get; set; }
+        public System.Data.Entity.DbSet<TPCCC_ALTAMIRANO.Models.Cliente> Cliente { get; set; }
+
+        public System.Data.Entity.DbSet<TPCCC_ALTAMIRANO.Models.Ingreso> Ingresoes { get; set; }
     }
 }

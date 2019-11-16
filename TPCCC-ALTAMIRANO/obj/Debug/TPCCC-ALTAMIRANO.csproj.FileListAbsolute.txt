@@ -87,3 +87,4 @@ C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALT
 C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC_ALTAMIRANO.Migrations.InitialCreate.resources
 C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALTAMIRANO.csproj.GenerateResource.cache
 C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC_ALTAMIRANO.Migrations.AddUpdate.resources
+C:\Users\Rafa\source\repos\TPCCC-ALTAMIRANO\TPCCC-ALTAMIRANO\obj\Debug\TPCCC-ALTAMIRANO.csprojAssemblyReference.cache

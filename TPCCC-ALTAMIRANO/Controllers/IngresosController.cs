@@ -9,122 +9,109 @@ using System.Web.Mvc;
 using TPCCC_ALTAMIRANO.DAL;
 using TPCCC_ALTAMIRANO.Models;
 
-
 namespace TPCCC_ALTAMIRANO.Controllers
 {
-    public class RepuestosController : Controller
+    public class IngresosController : Controller
     {
         private ReparacionesContext db = new ReparacionesContext();
 
-        // GET: Repuestos
+        // GET: Ingresos
         public ActionResult Index()
         {
-            return View(db.Repuesto.ToList());
+            return View(db.Ingresoes.ToList());
         }
 
-        // GET: Repuestos/Details/5
+        // GET: Ingresos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = db.Repuesto.Find(id);
-            if (repuesto == null)
+            Ingreso ingreso = db.Ingresoes.Find(id);
+            if (ingreso == null)
             {
                 return HttpNotFound();
             }
-            return View(repuesto);
+            return View(ingreso);
         }
 
-        // GET: Repuestos/Create
+        // GET: Ingresos/Create
         public ActionResult Create()
         {
-            ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");
-            ViewBag.ListaProveedores = new SelectList(db.Proveedor.ToList(), "ID", "Nombre");
-           
             return View();
         }
 
-        // POST: Repuestos/Create
+        // POST: Ingresos/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Repuesto repuesto,[Bind(Include = "ID")] Marca marca, [Bind(Include = "ID")] Proveedor proveedor)// me trae solo el id de marca
+        public ActionResult Create([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,Seguimiento,FallaCliente,PassEquipo,Accesorios,FallaDetectada,ReparacionRealizada")] Ingreso ingreso)
         {
-            Repuesto auxRepuesto = new Repuesto();
             if (ModelState.IsValid)
             {
-                auxRepuesto.Marca = marca;
-                auxRepuesto.Nombre = repuesto.Nombre;
-                
-                auxRepuesto.Proveedor = proveedor;
-                db.Repuesto.Add(auxRepuesto);
-                db.Marca.Attach(marca);
-                db.Proveedor.Attach(proveedor);// esto hace que marca no sea modificado en la base de datos
-                //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
-                //                                 EntityState.Unchanged);una prueba fallida
+                db.Ingresoes.Add(ingreso);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(repuesto);
+            return View(ingreso);
         }
 
-        // GET: Repuestos/Edit/5
+        // GET: Ingresos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = db.Repuesto.Find(id);
-            if (repuesto == null)
+            Ingreso ingreso = db.Ingresoes.Find(id);
+            if (ingreso == null)
             {
                 return HttpNotFound();
             }
-            return View(repuesto);
+            return View(ingreso);
         }
 
-        // POST: Repuestos/Edit/5
+        // POST: Ingresos/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre")] Repuesto repuesto)
+        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,Seguimiento,FallaCliente,PassEquipo,Accesorios,FallaDetectada,ReparacionRealizada")] Ingreso ingreso)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(repuesto).State = EntityState.Modified;
+                db.Entry(ingreso).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(repuesto);
+            return View(ingreso);
         }
 
-        // GET: Repuestos/Delete/5
+        // GET: Ingresos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = db.Repuesto.Find(id);
-            if (repuesto == null)
+            Ingreso ingreso = db.Ingresoes.Find(id);
+            if (ingreso == null)
             {
                 return HttpNotFound();
             }
-            return View(repuesto);
+            return View(ingreso);
         }
 
-        // POST: Repuestos/Delete/5
+        // POST: Ingresos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Repuesto repuesto = db.Repuesto.Find(id);
-            db.Repuesto.Remove(repuesto);
+            Ingreso ingreso = db.Ingresoes.Find(id);
+            db.Ingresoes.Remove(ingreso);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

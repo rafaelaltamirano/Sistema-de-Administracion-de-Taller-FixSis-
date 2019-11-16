@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RepuestosController.cs" />
@@ -147,7 +148,9 @@
       <DependentUpon>201911140007481_AddUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Ingreso.cs" />
     <Compile Include="Models\Marca.cs" />
     <Compile Include="DAL\ReparacionesContext.cs" />
     <Compile Include="Models\Proveedor.cs" />
@@ -225,6 +228,16 @@
     <Content Include="Views\Clientes\Details.cshtml" />
     <Content Include="Views\Clientes\Edit.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Servicios1\Create.cshtml" />
+    <Content Include="Views\Servicios1\Delete.cshtml" />
+    <Content Include="Views\Servicios1\Details.cshtml" />
+    <Content Include="Views\Servicios1\Edit.cshtml" />
+    <Content Include="Views\Servicios1\Index.cshtml" />
+    <Content Include="Views\Ingresos\Create.cshtml" />
+    <Content Include="Views\Ingresos\Delete.cshtml" />
+    <Content Include="Views\Ingresos\Details.cshtml" />
+    <Content Include="Views\Ingresos\Edit.cshtml" />
+    <Content Include="Views\Ingresos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
