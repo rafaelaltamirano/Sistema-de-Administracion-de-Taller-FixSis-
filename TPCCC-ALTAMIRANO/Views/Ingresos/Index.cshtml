@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("~/Views/SubMenuIngreso.cshtml")
 <h2>Index</h2>
 
 <p>
@@ -34,73 +34,80 @@
             @Html.DisplayNameFor(model => model.Marca)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Seguimiento)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FallaCliente)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassEquipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Accesorios)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FallaDetectada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReparacionRealizada)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.PassEquipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accesorios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Presupuesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioFinal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FallaDetectada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReparacionRealizada)*@
+        @*</th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApellidoCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DireccionCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Modelo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Seguimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FallaCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassEquipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Accesorios)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FallaDetectada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReparacionRealizada)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApellidoCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DireccionCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FallaCliente)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.PassEquipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accesorios)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Presupuesto)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.PrecioFinal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FallaDetectada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReparacionRealizada)
+                </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

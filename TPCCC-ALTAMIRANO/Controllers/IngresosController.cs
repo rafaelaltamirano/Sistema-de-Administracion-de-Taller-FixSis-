@@ -18,7 +18,11 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Ingresos
         public ActionResult Index()
         {
-            return View(db.Ingresoes.ToList());
+            //db.Ingresos.Select(x=>x.idEstado==1 && == 2 )
+            // List<Ingreso> IngresoList = db.Ingresos.Where(i => i.idEstado == 1 && i.idEstado == 2).ToList();
+            //db.Ingresos.Where(i => i.idEstado == 1 || i.idEstado == 2).ToList()
+            
+            return View(db.Ingresos.ToList());
         }
 
         // GET: Ingresos/Details/5
@@ -28,7 +32,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingreso ingreso = db.Ingresoes.Find(id);
+            Ingreso ingreso = db.Ingresos.Find(id);
             if (ingreso == null)
             {
                 return HttpNotFound();
@@ -39,6 +43,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Ingresos/Create
         public ActionResult Create()
         {
+
+            ViewBag.ListaIngresos = new SelectList(db.Ingresos.ToList(), "ID");
+            ViewBag.ListaEstados = new SelectList(db.Estado.ToList(), "ID", "Nombre");
             return View();
         }
 
@@ -47,11 +54,29 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,Seguimiento,FallaCliente,PassEquipo,Accesorios,FallaDetectada,ReparacionRealizada")] Ingreso ingreso)
+        public ActionResult Create([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,FallaCliente,PassEquipo,Accesorios,Presupuesto,PrecioFinal,FallaDetectada,ReparacionRealizada")] Ingreso ingreso,int idEstado)
         {
+
             if (ModelState.IsValid)
             {
-                db.Ingresoes.Add(ingreso);
+                Ingreso AuxIngreso = new Ingreso();
+
+
+                AuxIngreso.Id = ingreso.Id;
+                AuxIngreso.NombreCliente = ingreso.NombreCliente;
+                AuxIngreso.ApellidoCliente = ingreso.ApellidoCliente;
+                AuxIngreso.Telefono = ingreso.Telefono;
+                AuxIngreso.EmailCliente = ingreso.EmailCliente;
+                AuxIngreso.DireccionCliente = ingreso.DireccionCliente;
+                AuxIngreso.Modelo = ingreso.Modelo;
+                AuxIngreso.Marca = ingreso.Marca;
+                AuxIngreso.FallaCliente = ingreso.FallaCliente;
+                AuxIngreso.PassEquipo = ingreso.PassEquipo;
+                AuxIngreso.Accesorios = ingreso.Accesorios;
+                AuxIngreso.Presupuesto = ingreso.Presupuesto;
+                AuxIngreso.idEstado = idEstado;
+                db.Ingresos.Add(AuxIngreso);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,7 +91,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingreso ingreso = db.Ingresoes.Find(id);
+            Ingreso ingreso = db.Ingresos.Find(id);
             if (ingreso == null)
             {
                 return HttpNotFound();
@@ -79,11 +104,18 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,Seguimiento,FallaCliente,PassEquipo,Accesorios,FallaDetectada,ReparacionRealizada")] Ingreso ingreso)
+        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,FallaCliente,PassEquipo,Accesorios,Presupuesto,PrecioFinal,FallaDetectada,ReparacionRealizada")] Ingreso ingreso,int idEstado)
         {
+            // no edita el estado si no que lo agrega
+
             if (ModelState.IsValid)
             {
-                db.Entry(ingreso).State = EntityState.Modified;
+                var entity = db.Ingresos.Find(ingreso.Id);// entity variable guardar cosas de la base 
+
+                ingreso.idEstado = idEstado;
+
+                db.Entry(entity).CurrentValues.SetValues(ingreso);// actualizacion de los datos 
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -97,7 +129,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingreso ingreso = db.Ingresoes.Find(id);
+            Ingreso ingreso = db.Ingresos.Find(id);
             if (ingreso == null)
             {
                 return HttpNotFound();
@@ -110,8 +142,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Ingreso ingreso = db.Ingresoes.Find(id);
-            db.Ingresoes.Remove(ingreso);
+            Ingreso ingreso = db.Ingresos.Find(id);
+            db.Ingresos.Remove(ingreso);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -23,9 +23,11 @@ namespace TPCCC_ALTAMIRANO.Models
         public string Modelo { get; set;}
         [StringLength(50)]
         public string Marca { get; set;}
+        //[Required]
+        public int idEstado { get; set; }// numero que pasara el ingreso a reparacion, entregar, historico etc
+        //public int EstadoId { get; set; }// numero que pasara el ingreso a reparacion, entregar, historico etc
+        [StringLength(300)]
         [Required]
-        public Estado Estado { get; set; }// numero que pasara el ingreso a reparacion, entregar, historico etc
-        [StringLength(300)][Required]
         public string FallaCliente { get; set;}// falla declarada por el cliente al momento de traerlo
         [StringLength(50)]
         public string PassEquipo { get; set; }
@@ -39,5 +41,7 @@ namespace TPCCC_ALTAMIRANO.Models
         public string FallaDetectada { get; set;}// falla detectada una vez revisado
         [StringLength(300)]
         public string ReparacionRealizada { get; set; }
+
+        //public List<Estado> EstadoList { get; set; }
     }
 }

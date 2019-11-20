@@ -24,7 +24,7 @@ namespace TPCCC_ALTAMIRANO.DAL
         public DbSet<Servicio> Servicio { get; set; }
         public DbSet<Repuesto> Repuesto { get; set; }
         public DbSet<Estado> Estado { get; set; }
-        public DbSet<Ingreso> Ingreso { get; set; }
+        public DbSet<Ingreso> Ingresos { get; set; }
         //public DbSet<Cliente> Cliente { get; set; }
         public object ObjectStateManager { get; internal set; }
 
@@ -35,6 +35,6 @@ namespace TPCCC_ALTAMIRANO.DAL
 
         public System.Data.Entity.DbSet<TPCCC_ALTAMIRANO.Models.Cliente> Cliente { get; set; }
 
-        public System.Data.Entity.DbSet<TPCCC_ALTAMIRANO.Models.Ingreso> Ingresoes { get; set; }
+        
     }
 }

@@ -9,5 +9,8 @@ namespace TPCCC_ALTAMIRANO.Models
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
+        //public List<Estado> estadoList { get; set; }
     }
+
+
 }

@@ -37,11 +37,13 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Repuesto, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @*@Html.ListBoxFor(model => model.Marca.SelectedMarcas, Model.Marca.ListMarcas, new { @class = "form-control" })*@
+         
             @Html.DropDownList("Id", ViewBag.ListaRepuestos as SelectList, "seleccionar", new { @class = "form-control" })
-            @* @Html.ActionLink( " Agregar", "Create", "Marca", // or to pass some value -> routeValues: new { id = 1 },*@
-            @Html.ActionLink("Agregar", "Create", "Repuestos", null, new { @class = "btn btn-primary" })
 
+            @Html.ActionLink("Agregar", "Create", "Repuestos", null, new { @class = "btn btn-primary" })
+            @* ViewBag puede ser útil cuando desea transferir datos temporales (que no están incluidos en el modelo) desde el controlador
+                a la vista. ViewBag es una propiedad de tipo dinámico de la clase ControllerBase que es la clase base de todos los 
+                controladores. *@
 
         </div>
     </div>
