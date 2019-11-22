@@ -25,6 +25,7 @@ namespace TPCCC_ALTAMIRANO.DAL
         public DbSet<Repuesto> Repuesto { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<Ingreso> Ingresos { get; set; }
+        //public DbSet<Ingreso> Login { get; set; }
         //public DbSet<Cliente> Cliente { get; set; }
         public object ObjectStateManager { get; internal set; }
 

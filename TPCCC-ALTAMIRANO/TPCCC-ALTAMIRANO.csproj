@@ -133,6 +133,7 @@
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RepuestosController.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Ingreso.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Marca.cs" />
     <Compile Include="DAL\ReparacionesContext.cs" />
     <Compile Include="Models\Proveedor.cs" />
@@ -274,6 +276,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Ingresos\EnReparacion.cshtml" />
+    <Content Include="Views\Ingresos\Entregar.cshtml" />
+    <Content Include="Views\Ingresos\Historico.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

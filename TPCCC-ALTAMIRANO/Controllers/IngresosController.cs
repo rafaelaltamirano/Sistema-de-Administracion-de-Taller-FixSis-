@@ -22,9 +22,22 @@ namespace TPCCC_ALTAMIRANO.Controllers
             // List<Ingreso> IngresoList = db.Ingresos.Where(i => i.idEstado == 1 && i.idEstado == 2).ToList();
             //db.Ingresos.Where(i => i.idEstado == 1 || i.idEstado == 2).ToList()
             
-            return View(db.Ingresos.ToList());
+            return View(db.Ingresos.Where(i => i.idEstado == 1 || i.idEstado == 2 || i.idEstado==3).ToList());
         }
+        public ActionResult EnReparacion()
+        {
 
+            return View(db.Ingresos.Where(i => i.idEstado == 4).ToList());
+        }
+        public ActionResult Entregar()
+        {
+
+            return View(db.Ingresos.Where(i => i.idEstado == 5).ToList());
+        }
+        public ActionResult Historico()
+        {
+            return View(db.Ingresos.Where(i => i.idEstado == 6).ToList());
+        }
         // GET: Ingresos/Details/5
         public ActionResult Details(int? id)
         {
@@ -80,7 +93,13 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            foreach (ModelState modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    
+                }
+            }
             return View(ingreso);
         }
 

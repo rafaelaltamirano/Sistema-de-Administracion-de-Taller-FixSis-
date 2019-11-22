@@ -4,13 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title FixSis</title>
-    @*@Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~ / bundles / jquery")
-    @Styles.Render("~ / Content / bootstrapcss")
-    @Scripts.Render("~ / bundles / bootstrapjs")
-    @Scripts.Render("~ / bundles / modernizr")*@
+    <title>@ViewBag.Title FixSis</title> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -18,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">FixSis</a>
+        <a class="navbar-brand" >  @Html.ActionLink("FixSis", "Index", "Home", new object { }, new { @class = "nav-link" })</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,12 +23,11 @@
                         Reparaciones
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        @Html.ActionLink("Nuevo Ingreso", "Index", "Ingresos", new object { }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Nuevo Ingreso", "Create", "Ingresos", new object { }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Aministrar", "Index", "Ingresos", new object { }, new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item">
-
                     @Html.ActionLink("Clientes", "Index", "Clientes", new object { }, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
@@ -52,61 +45,17 @@
         </div>
     </nav>
 
-
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color:lightgrey;  ">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("FixSis", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            Reparaciones <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Ingreso</a></li>
-                            <li><a href="#">Administrar</a></li>
-
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>
-                    <li>@Html.ActionLink("Proveedores","Index","Proveedores")</li>
-                    <li>@Html.ActionLink("Servicios", "Index", "Servicios")</li>
-                    @* texto a mostrar, nombre del action result, nombre del controller *@
-                    @*<li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
-                </ul>*@
-                @*<img src="https://png.pngtree.com/svg/20161018/to_configure_36980.png" width="25" class="dropdown-toggle" data-toggle="dropdown" role="button" />*@
-
-                @*BUSCAR Y BOTON <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar">
-                        </div>
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </form>
-            </div>
-        </div>
-    </div>*@
-
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - FixSistems</p>
+            <p>&copy; @DateTime.Now.Year - FixSis</p>
         </footer>
     </div>
 
-    @*@Scripts.Render("~/bundles/jquery")
+   @* @Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)*@
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 

@@ -39,7 +39,16 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         // POST: Usuarios/Create
@@ -124,5 +133,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             }
             base.Dispose(disposing);
         }
+
+       
     }
 }

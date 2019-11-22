@@ -11,20 +11,24 @@
       }
       ol.breadcrumb{
 
-          height:60px;
+          height:80px;
       }
+      #tituloH2{ text-align: center}
 
   </style>
 </head>
 <body>
 
-    
+    <h2 id="tituloH2">Administrador de Reparaciones</h2>
+
     <nav aria-label="breadcrumb" >
         <ol class="breadcrumb">
-            <li class="breadcrumb"><a href="#">Home</a></li>
-            <li class="breadcrumb"><a href="#">Library</a></li>
-            <li class="breadcrumb"><a href="#">Library</a></li>
-            <li class="breadcrumb"><a href="#">Library</a></li>
+            <li class="breadcrumb"> @Html.ActionLink("Ingresos", "Index", "Ingresos", new object { }, new { @class = "nav-link" })</li>
+            <li class="breadcrumb">@Html.ActionLink("En Reparación", "EnReparacion", "Ingresos", new object { }, new { @class = "nav-link" })</li>
+            <li class="breadcrumb">@Html.ActionLink("Para Entregar", "Entregar", "Ingresos", new object { }, new { @class = "nav-link" })</li>
+            <li class="breadcrumb">@Html.ActionLink("Historico", "Historico", "Ingresos", new object { }, new { @class = "nav-link" })</a></li>
+           
+            
         </ol>
     </nav>
 
