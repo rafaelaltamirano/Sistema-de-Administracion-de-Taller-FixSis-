@@ -15,12 +15,18 @@ namespace TPCCC_ALTAMIRANO.Controllers
     {
         private ReparacionesContext db = new ReparacionesContext();
 
+
+        public ActionResult ElegirCliente()
+        {
+            return View(db.Cliente.ToList());
+        }
+
         // GET: Clientes
         public ActionResult Index()
         {
             return View(db.Cliente.ToList());
         }
-
+        
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
@@ -115,7 +121,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -124,5 +130,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
     }
 }

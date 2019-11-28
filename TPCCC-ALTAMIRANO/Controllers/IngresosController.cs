@@ -24,6 +24,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             
             return View(db.Ingresos.Where(i => i.idEstado == 1 || i.idEstado == 2 || i.idEstado==3).ToList());
         }
+       
         public ActionResult EnReparacion()
         {
 
@@ -54,12 +55,34 @@ namespace TPCCC_ALTAMIRANO.Controllers
         }
 
         // GET: Ingresos/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)//int? abreviacion de  nulleable int
         {
-
+            var clie = from c in db.Cliente select c;
+            Ingreso ingreso = new Ingreso();
+            //var clie = db.Cliente.Where(i => i.Id == id);
+        
             ViewBag.ListaIngresos = new SelectList(db.Ingresos.ToList(), "ID");
             ViewBag.ListaEstados = new SelectList(db.Estado.ToList(), "ID", "Nombre");
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+               foreach(var l in clie)
+                {  if(l.Id==id)
+                    {
+
+                        ingreso.NombreCliente = l.Nombre;
+                        ingreso.ApellidoCliente = l.Apellido;
+                        ingreso.EmailCliente = l.Email;
+                        ingreso.DireccionCliente = l.Direccion;
+                        ingreso.Telefono = l.Telefono;
+                        return View(ingreso);
+                    }
+                }
+                return View();
+            }
         }
 
         // POST: Ingresos/Create
@@ -175,5 +198,13 @@ namespace TPCCC_ALTAMIRANO.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET: Ingresos/Delete/5
+        //public ActionResult TraerCliente()
+        //{
+            
+        //    return View(Cliente cliente);
+        //}/
+        // tengo que pasar datos del controlador buscar cliente post que seria el que vuelve de la vista buscar cliente una vez elegido el cliente, al controlador de ingreso nuevo get, esto seria para precargar los datos traidos 
     }
 }

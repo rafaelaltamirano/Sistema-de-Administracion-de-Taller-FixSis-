@@ -280,6 +280,7 @@
     <Content Include="Views\Ingresos\Entregar.cshtml" />
     <Content Include="Views\Ingresos\Historico.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Clientes\ElegirCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
