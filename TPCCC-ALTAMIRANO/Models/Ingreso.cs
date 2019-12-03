@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -41,7 +42,9 @@ namespace TPCCC_ALTAMIRANO.Models
         public string FallaDetectada { get; set;}// falla detectada una vez revisado
         [StringLength(300)]
         public string ReparacionRealizada { get; set; }
-
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime FechaHora { get; set; }
         //public List<Estado> EstadoList { get; set; }
     }
 }

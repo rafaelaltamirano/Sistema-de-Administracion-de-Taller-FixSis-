@@ -15,7 +15,34 @@ namespace TPCCC_ALTAMIRANO.Controllers
     {
         private ReparacionesContext db = new ReparacionesContext();
 
+        [HttpPost]
+        public ActionResult ElegirCliente(string palabra)
+        {
+            try
+            {
+                IEnumerable<Cliente> cliente;
 
+
+                cliente = db.Cliente;
+
+                if (!String.IsNullOrEmpty(palabra))
+                {
+                    cliente = cliente.Where(c => c.Nombre.ToUpper().Contains(palabra.ToUpper()) || c.Apellido.ToUpper().Contains(palabra.ToUpper()) || c.Telefono.ToUpper().Contains(palabra.ToUpper()));
+                }
+
+                cliente = cliente.ToList();
+
+
+                return View(cliente);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+        // GET: Clientes/Elegr Cliente
         public ActionResult ElegirCliente()
         {
             return View(db.Cliente.ToList());
@@ -68,6 +95,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Clientes/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.returnUrl = Request.UrlReferrer;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,13 +113,13 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Cliente cliente, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect(returnUrl);
             }
             return View(cliente);
         }
@@ -99,28 +127,32 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Clientes/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cliente);
-        }
-
-        // POST: Clientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Cliente cliente = db.Cliente.Find(id);
             db.Cliente.Remove(cliente);
             db.SaveChanges();
             return RedirectToAction("Index");
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Cliente cliente = db.Cliente.Find(id);
+            //if (cliente == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(cliente);
         }
+
+        // POST: Clientes/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Cliente cliente = db.Cliente.Find(id);
+        //    db.Cliente.Remove(cliente);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
         
         protected override void Dispose(bool disposing)
         {

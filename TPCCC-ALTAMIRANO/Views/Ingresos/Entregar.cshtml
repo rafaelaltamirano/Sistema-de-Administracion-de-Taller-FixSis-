@@ -11,111 +11,72 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NombreCliente)
+            Nº
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApellidoCliente)
+            Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Telefono)
+            @*@Html.DisplayNameFor(model => model.ApellidoCliente)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmailCliente)
+            Telefono
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.DireccionCliente)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Modelo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idEstado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FallaCliente)
-        </th>
+                @Html.DisplayNameFor(model => model.EmailCliente)
+            </th>*@
         @*<th>
-            @Html.DisplayNameFor(model => model.PassEquipo)
+                @Html.DisplayNameFor(model => model.DireccionCliente)
+            </th>*@
+        <th>
+            Equipo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Accesorios)
+            Marca
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Presupuesto)
+            Falla segun el Cliente
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PrecioFinal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FallaDetectada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReparacionRealizada)
-        </th>*@
+        <th></th>
+        <th> </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApellidoCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailCliente)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.DireccionCliente)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Modelo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idEstado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FallaCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassEquipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Accesorios)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Presupuesto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrecioFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FallaDetectada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReparacionRealizada)
-        </td>
-        <td>
-            @Html.ActionLink("Administrar", "Edit", new { id = item.Id })
-        </td>
-        <td>
-            @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id })
-        </td>
-        <td>
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-        </td>
-    </tr>
+        <tr id="@item.idEstado">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApellidoCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FallaCliente)
+            </td>
+            <td>
+                @Html.ActionLink("Administrar", "Edit", new { id = item.Id }, new { @style = "color:black;" })
+            </td>
+            <td>
+                @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;" })
+            </td>
+            <td>
+                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Ingresos/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+            </td>
+        </tr>
     }
 
 </table>
+

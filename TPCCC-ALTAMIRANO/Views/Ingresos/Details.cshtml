@@ -4,128 +4,132 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+   
+   
+</style>
 <h2>Detalle</h2>
 
 <div>
     <h4>Ingreso N @Model.Id</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NombreCliente)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NombreCliente)
-        </dd>
+    <form id="contact-form" method="post" action="contact.php" role="form">
+        
+        <div class="row">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ApellidoCliente)
-        </dt>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6> Nombre y Apellido</h6>
+                    <h4> @Html.DisplayFor(model => model.NombreCliente)  @Html.DisplayFor(model => model.ApellidoCliente)</h4>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <h6>Telefono</h6>
+                    <h4> @Html.DisplayFor(model => model.Telefono)</h4>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <h6>Correo Electronico</h6>
+                    <h4> @Html.DisplayFor(model => model.EmailCliente)</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>Direccion</h6>
+                    <h4> @Html.DisplayFor(model => model.DireccionCliente)</h4>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApellidoCliente)
-        </dd>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <h6> Modelo del Equipo</h6>
+                    <h4> @Html.DisplayFor(model => model.Modelo)</h4>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <h6> Marca del Equipo</h6>
+                    <h4> @Html.DisplayFor(model => model.Marca)</h4>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Falla reportada por el Cliente</h6>
+                    <h4> @Html.DisplayFor(model => model.FallaCliente)</h4>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <h6>Accesorios</h6>
+                    <h4> @Html.DisplayFor(model => model.Accesorios)</h4>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <h6>Password</h6>
+                    <h4> @Html.DisplayFor(model => model.PassEquipo)</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <h6> Presupuesto </h6>
+                    <h4> @Html.DisplayFor(model => model.Presupuesto)</h4>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <h6>Precio Final</h6>
+                    <h4> @Html.DisplayFor(model => model.PrecioFinal)</h4>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <h6>Falla Detectada</h6>
+                    <h4> @Html.DisplayFor(model => model.FallaDetectada)</h4>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailCliente)
-        </dt>
+        </div>
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailCliente)
-        </dd>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <h6>Reparacion realizada</h6>
+                    <h4> @Html.DisplayFor(model => model.ReparacionRealizada)</h4>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DireccionCliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DireccionCliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Modelo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Modelo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Marca)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Marca)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FallaCliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FallaCliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PassEquipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PassEquipo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Accesorios)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Accesorios)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Presupuesto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Presupuesto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PrecioFinal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PrecioFinal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FallaDetectada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FallaDetectada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReparacionRealizada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReparacionRealizada)
-        </dd>
-
-    </dl>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <h6> Fecha de Ingreso</h6>
+                    <h3> @Html.DisplayFor(model => model.FechaHora)</h3>
+                </div>
+            </div>
+        </div>
+  
+        @*paso el parámetro returnUrl del método al método [HttpPost] usando un campo oculto en el formulario:*@       
+    </form>
 </div>
 <p>
-   
-    @Html.ActionLink("Volver Atras", "Index")
+    @*paso el parámetro returnUrl del método al método [HttpPost] usando un campo oculto en el formulario:*@
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+    <div>
+        @* volver atras desde la pagina en la que estaba*@
+        <div class="badge badge-primary text-wrap" style="width: 6rem;">
+            <a href="@ViewBag.returnUrl" style="color:white;text-decoration:none">Volver Atras</a>
+        </div>
+
+    </div>
+
 </p>

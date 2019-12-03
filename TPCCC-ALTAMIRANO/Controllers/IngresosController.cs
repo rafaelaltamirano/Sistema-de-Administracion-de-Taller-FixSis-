@@ -21,27 +21,31 @@ namespace TPCCC_ALTAMIRANO.Controllers
             //db.Ingresos.Select(x=>x.idEstado==1 && == 2 )
             // List<Ingreso> IngresoList = db.Ingresos.Where(i => i.idEstado == 1 && i.idEstado == 2).ToList();
             //db.Ingresos.Where(i => i.idEstado == 1 || i.idEstado == 2).ToList()
-            
+            TempData["url"] = "http://localhost:63934/Ingresos/Index";
             return View(db.Ingresos.Where(i => i.idEstado == 1 || i.idEstado == 2 || i.idEstado==3).ToList());
         }
        
         public ActionResult EnReparacion()
         {
-
+            TempData["url"] = "http://localhost:63934/Ingresos/EnReparacion";
             return View(db.Ingresos.Where(i => i.idEstado == 4).ToList());
         }
         public ActionResult Entregar()
         {
-
+            TempData["url"] = "http://localhost:63934/Ingresos/Entregar";
             return View(db.Ingresos.Where(i => i.idEstado == 5).ToList());
         }
         public ActionResult Historico()
-        {
+        {   
+            //ViewBag.returnUrl = Request.UrlReferrer;
+            TempData["url"] = "http://localhost:63934/Ingresos/Historico";
             return View(db.Ingresos.Where(i => i.idEstado == 6).ToList());
         }
         // GET: Ingresos/Details/5
         public ActionResult Details(int? id)
         {
+            // Grab the previous URL and add it to the Model using ViewData or ViewBag
+            ViewBag.returnUrl = Request.UrlReferrer;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -57,6 +61,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Ingresos/Create
         public ActionResult Create(int? id)//int? abreviacion de  nulleable int
         {
+            // Grab the previous URL and add it to the Model using ViewData or ViewBag
+            ViewBag.returnUrl = Request.UrlReferrer;
             var clie = from c in db.Cliente select c;
             Ingreso ingreso = new Ingreso();
             //var clie = db.Cliente.Where(i => i.Id == id);
@@ -78,6 +84,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
                         ingreso.EmailCliente = l.Email;
                         ingreso.DireccionCliente = l.Direccion;
                         ingreso.Telefono = l.Telefono;
+                        
                         return View(ingreso);
                     }
                 }
@@ -111,6 +118,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 AuxIngreso.Accesorios = ingreso.Accesorios;
                 AuxIngreso.Presupuesto = ingreso.Presupuesto;
                 AuxIngreso.idEstado = idEstado;
+                AuxIngreso.FechaHora = DateTime.Now;
                 db.Ingresos.Add(AuxIngreso);
 
                 db.SaveChanges();
@@ -129,6 +137,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Ingresos/Edit/5
         public ActionResult Edit(int? id)
         {
+            // Grab the previous URL and add it to the Model using ViewData or ViewBag
+            ViewBag.returnUrl = Request.UrlReferrer;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -146,7 +156,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,FallaCliente,PassEquipo,Accesorios,Presupuesto,PrecioFinal,FallaDetectada,ReparacionRealizada")] Ingreso ingreso,int idEstado)
+        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,FallaCliente,PassEquipo,Accesorios,Presupuesto,PrecioFinal,FallaDetectada,ReparacionRealizada")] Ingreso ingreso,int idEstado, string returnUrl)
         {
             // no edita el estado si no que lo agrega
 
@@ -159,7 +169,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 db.Entry(entity).CurrentValues.SetValues(ingreso);// actualizacion de los datos 
                 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect(returnUrl);
             }
             return View(ingreso);
         }
@@ -167,28 +177,23 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Ingresos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Ingreso ingreso = db.Ingresos.Find(id);
-            if (ingreso == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ingreso);
-        }
-
-        // POST: Ingresos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Ingreso ingreso = db.Ingresos.Find(id);
+            string url = TempData["url"].ToString();
             db.Ingresos.Remove(ingreso);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect(url);
         }
+
+        //// POST: Ingresos/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Ingreso ingreso = db.Ingresos.Find(id);
+        //    db.Ingresos.Remove(ingreso);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -199,12 +204,5 @@ namespace TPCCC_ALTAMIRANO.Controllers
             base.Dispose(disposing);
         }
 
-        // GET: Ingresos/Delete/5
-        //public ActionResult TraerCliente()
-        //{
-            
-        //    return View(Cliente cliente);
-        //}/
-        // tengo que pasar datos del controlador buscar cliente post que seria el que vuelve de la vista buscar cliente una vez elegido el cliente, al controlador de ingreso nuevo get, esto seria para precargar los datos traidos 
     }
 }

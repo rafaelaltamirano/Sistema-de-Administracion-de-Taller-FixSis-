@@ -71,6 +71,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
