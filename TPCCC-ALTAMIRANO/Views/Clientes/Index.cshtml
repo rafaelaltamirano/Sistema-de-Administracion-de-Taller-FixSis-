@@ -8,21 +8,39 @@
 
     #tituloH2 {
         text-align: center;
-        margin-top:10px;
+        margin-top: 10px;
     }
-
-  
 </style>
 <h2 id="tituloH2">Administrador Clientes</h2>
 <hr/>
-<p>
+@using (Html.BeginForm("Index", "Clientes", FormMethod.Post))
+{
     <div class="form-group">
-        <button type="button" onclick="location.href='@Url.Action("Create", "Clientes")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
-            Nuevo Cliente
-        </button>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <h5>LISTADO DE CLIENTES</h5>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <button type="button" onclick="location.href='@Url.Action("Create", "Clientes")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                        Nuevo Cliente
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
+                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+            </div>
+        </div>
     </div>
-    
-</p>
+
+
+}
 <table class="table">
     <tr>
         <th>
@@ -45,41 +63,42 @@
         </th>
         <th></th>
         <th></th>
-        <th></th>   
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
 
-        <td>
-            @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
-        </td>
-        <td>
-            @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
-        </td>
-        <td>
-            <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Clientes/Delete/@item.Id"><span class="fa fa-trash"></span></a>
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+            </td>
+            <td>
+                @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+            </td>
+            <td>
+                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Clientes/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+            </td>
+        </tr>
     }
 
 </table>

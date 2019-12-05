@@ -6,19 +6,17 @@ using System.Web;
 
 namespace TPCCC_ALTAMIRANO.Models
 {
-    public class Login
+    public class LoginModel
     {
-        [Required(ErrorMessage = "Please enter user name.")]
-        //[DataType(DataType.EmailAddress)]
-        [Display(Name = "User Name")]
+        [Required(ErrorMessage = "Por Favor ingrese su Nombre de usuario")]       
+        [Display(Name = "Nombre de Usuario")]
         [StringLength(30)]
         public string NombreUsuario { get; set; }
 
         [Required(ErrorMessage = "Please enter password.")]
-        //[DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
         [StringLength(10)]
-        public string Password { get; set; }
-
+        public string PassUsuario { get; set; }
     }
 }

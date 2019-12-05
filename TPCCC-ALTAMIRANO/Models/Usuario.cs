@@ -15,6 +15,6 @@ namespace TPCCC_ALTAMIRANO.Models
         public int Dni { get; set; }
         public string Pass { get; set; }
         public int IdSucursal { get; set; }
-        public bool Estado { get; set; }
+        public string Email { get; set; }
     }
 }

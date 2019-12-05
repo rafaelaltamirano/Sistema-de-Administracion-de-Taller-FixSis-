@@ -20,6 +20,13 @@
                 return false;
         }
     </script>
+    <style>
+        #Divderecha{float:right;
+                    position:absolute;
+                    right:5px;
+                      
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,18 +48,34 @@
                 <li class="nav-item">
                     @Html.ActionLink("Clientes", "Index", "Clientes", new object { }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Proveedores", "Index", "Proveedores", new object { }, new { @class = "nav-link" })
-                </li>
+                @if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+                {
+                    <li class="nav-item">
+                         @Html.ActionLink("Proveedores", "Index", "Proveedores", new object { }, new { @class = "nav-link" })
+                    </li>
+                 }
+                   
+                @if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+                  {
+                    <li class="nav-item">
+                          @Html.ActionLink("Servicios", "Index", "Servicios", new object { }, new { @class = "nav-link" })
+                    </li>
+                  }
 
-                <li class="nav-item">
-                    @Html.ActionLink("Servicios", "Index", "Servicios", new object { }, new { @class = "nav-link" })
-                </li>
+                    <li class="nav-item dropdown" id="Divderecha">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario: @Session["NombreUsuario"]
+                        </a>
 
-                <li class="nav-item">
-                    @Html.ActionLink("Usuarios", "Index", "Usuarios", new object { }, new { @class = "nav-link" })
-                </li>
-            </ul>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            @Html.ActionLink("Cerrar Sesion", "LogOut", "Login", new object { }, new { @class = "dropdown-item" })
+                            @if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+                            {
+                                @Html.ActionLink("Administrar", "Index", "Usuarios", new object { }, new { @class = "dropdown-item" })
+                            }
+                        </div>
+                    </li>
+                </ul>
         </div>
     </nav>
 

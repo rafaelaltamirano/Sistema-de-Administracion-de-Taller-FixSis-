@@ -6,77 +6,100 @@
 }
 
 @Html.Partial("~/Views/SubMenuIngreso.cshtml")
+<hr />
+@using (Html.BeginForm("Entregar", "Ingresos", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <h5>PARA ENTREGAR</h5>
+                </div>
+            </div>
 
-<h2>Para Entregar</h2>
-<table class="table">
-    <tr>
-        <th>
-            Nº
-        </th>
-        <th>
-            Cliente
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ApellidoCliente)*@
-        </th>
-        <th>
-            Telefono
-        </th>
-        @*<th>
+            <div class="col-md-4">
+                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
+                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+            </div>
+        </div>
+    </div>
+
+
+}
+    <table class="table">
+        <tr>
+            <th>
+                Nº
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ApellidoCliente)*@
+            </th>
+            <th>
+                Telefono
+            </th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.EmailCliente)
             </th>*@
-        @*<th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.DireccionCliente)
             </th>*@
-        <th>
-            Equipo
-        </th>
-        <th>
-            Marca
-        </th>
-        <th>
-            Falla segun el Cliente
-        </th>
-        <th></th>
-        <th> </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr id="@item.idEstado">
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApellidoCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FallaCliente)
-            </td>
-            <td>
-                @Html.ActionLink("Administrar", "Edit", new { id = item.Id }, new { @style = "color:black;" })
-            </td>
-            <td>
-                @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;" })
-            </td>
-            <td>
-                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Ingresos/Delete/@item.Id"><span class="fa fa-trash"></span></a>
-            </td>
+            <th>
+                Equipo
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Falla segun el Cliente
+            </th>
+            <th></th>
+            <th> </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            if (item.idEstado == 5)
+            {
+                <tr id="@item.idEstado">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApellidoCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FallaCliente)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Administrar", "Edit", new { id = item.Id }, new { @style = "color:black;" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;" })
+                    </td>
+                    <td>
+                        <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Ingresos/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
 

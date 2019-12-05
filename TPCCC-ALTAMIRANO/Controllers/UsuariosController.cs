@@ -18,7 +18,13 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+            {
+                return View(db.Usuarios.ToList());
+            }
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: Usuarios/Details/5
@@ -39,16 +45,24 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            try
-            {
-                return View();
-            }
-            catch (Exception ex)
+            
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
             {
 
-                throw ex;
+                try
+                {
+                    return View();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
             }
-            
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         // POST: Usuarios/Create
@@ -56,32 +70,43 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Alias,TipoUsuario,Dni,Pass,IdSucursal,Estado")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Alias,TipoUsuario,Dni,Pass,IdSucursal,Email")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
             {
-                db.Usuarios.Add(usuario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Usuarios.Add(usuario);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(usuario);
+                return View(usuario);
+            }
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
-
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Usuario usuario = db.Usuarios.Find(id);
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(usuario);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         // POST: Usuarios/Edit/5
@@ -91,28 +116,40 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Alias,TipoUsuario,Dni,Pass,IdSucursal,Estado")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
             {
-                db.Entry(usuario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(usuario).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(usuario);
             }
-            return View(usuario);
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Usuario usuario = db.Usuarios.Find(id);
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(usuario);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(usuario);
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         // POST: Usuarios/Delete/5
@@ -120,10 +157,16 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+            {
+                Usuario usuario = db.Usuarios.Find(id);
+                db.Usuarios.Remove(usuario);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+                //si el usuario no es el correcto vuelve a la pag anterior
+                return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)

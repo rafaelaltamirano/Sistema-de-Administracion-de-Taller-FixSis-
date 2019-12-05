@@ -21,85 +21,109 @@
     }
 </style>
 <hr />
-<p>
-    @*@Html.ActionLink("Agregar Ingreso", "Create", new { id = "btnNuevoIngreso" }, new { @class = "btn btn-primary", @style = "color:white" })*@
+@using (Html.BeginForm("Index", "Ingresos", FormMethod.Post))
+{
     <div class="form-group">
-        <button type="button" onclick="location.href='@Url.Action("Create", "Ingresos")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
-            Nuevo Ingreso
-        </button>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group">
+                    <h5>INGRESOS</h5>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <button type="button" onclick="location.href='@Url.Action("Create", "Ingresos")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                        Nuevo Ingreso
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
+                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+            </div>
+        </div>
     </div>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Nº
-        </th>
-        <th>
-            Cliente
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ApellidoCliente)*@
-        </th>
-        <th>
-            Telefono
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.EmailCliente)
-            </th>*@
-        @*<th>
-                @Html.DisplayNameFor(model => model.DireccionCliente)
-            </th>*@
-        <th>
-            Equipo
-        </th>
-        <th>
-            Marca
-        </th>
-        <th>
-            Falla segun el Cliente
-        </th>
-        <th></th>
-        <th> </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr id="@item.idEstado">
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApellidoCliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FallaCliente)
-            </td>
-            <td>
-                @Html.ActionLink("Administrar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
-            </td>
-            <td>
-                @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
-            </td>
-            <td>
-                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Clientes/Delete/@item.Id"><span class="fa fa-trash"></span></a>
-               
-                @*@Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @style = "color:black;" })*@
-            </td>
+
+}
+
+    <table class="table">
+        <tr>
+            <th>
+                Nº
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ApellidoCliente)*@
+            </th>
+            <th>
+                Telefono
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.EmailCliente)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.DireccionCliente)
+                </th>*@
+            <th>
+                Equipo
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Falla segun el Cliente
+            </th>
+            <th></th>
+            <th> </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            if (item.idEstado == 1 || item.idEstado == 2 || item.idEstado == 3)
+            {
+            <tr id="@item.idEstado">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApellidoCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FallaCliente)
+                </td>
+                <td>
+                    @Html.ActionLink("Administrar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+                </td>
+                <td>
+                    @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+                </td>
+                <td>
+                    <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Clientes/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+
+                    @*@Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @style = "color:black;" })*@
+                </td>
+            </tr>
+            }
+        }
+
+    </table>
 

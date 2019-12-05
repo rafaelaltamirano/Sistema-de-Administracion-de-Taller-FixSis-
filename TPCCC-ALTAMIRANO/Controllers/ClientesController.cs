@@ -53,7 +53,26 @@ namespace TPCCC_ALTAMIRANO.Controllers
         {
             return View(db.Cliente.ToList());
         }
-        
+        [HttpPost]
+        public ActionResult Index(string palabra)
+        {
+            try
+            {
+                IEnumerable<Cliente> cliente;
+                cliente = db.Cliente;
+                if (!String.IsNullOrEmpty(palabra))
+                {
+                    cliente = cliente.Where(c => c.Nombre.ToUpper().Contains(palabra.ToUpper()) || c.Apellido.ToUpper().Contains(palabra.ToUpper()) || c.Telefono.ToUpper().Contains(palabra.ToUpper()));
+                }
+                cliente = cliente.ToList();
+                return View(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {

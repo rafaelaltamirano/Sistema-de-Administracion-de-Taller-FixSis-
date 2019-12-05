@@ -5,11 +5,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Administrador de Usuarios</h2>
+<style>
 
-<p>
-    @Html.ActionLink("Nuevo Usuario", "Create")
-</p>
+    #tituloH2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+<h2 id="tituloH2">Administrador de Usuarios</h2>
+<hr />
+@using (Html.BeginForm("Index", "Usuarios", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <h5>LISTADO DE USUARIOS</h5>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <button type="button" onclick="location.href='@Url.Action("Create", "Usuarios")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                        Nuevo Usuario
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+}
 <table class="table">
     <tr>
         <th>
@@ -27,19 +53,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Dni)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pass)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdSucursal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
+        
+        <th></th>
+        <th></th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Nombre)
@@ -51,26 +72,31 @@
             @Html.DisplayFor(modelItem => item.Alias)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TipoUsuario)
-        </td>
+            @switch (item.TipoUsuario)
+            {
+                case 1:
+                    <h7>Administrador</h7>
+                    break;
+                case 2:
+                    <h7>Secretario</h7>
+                    break;
+            }
+         </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Dni)
         </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.Pass)
+            @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdSucursal)
+            @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.ActionLink("Modificar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalle", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+            <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Usuarios/Delete/@item.Id"><span class="fa fa-trash"></span></a>
         </td>
     </tr>
-}
+    }
 
 </table>

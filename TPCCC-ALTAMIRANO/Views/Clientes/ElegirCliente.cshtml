@@ -10,27 +10,27 @@
 <html>
 <body>
     <p>
-        @Html.ActionLink("Agregar Nuevo Cliente", "Create")
+        <div class="form-group">
+            <button type="button" onclick="location.href='@Url.Action("Create", "Clientes")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                Nuevo Cliente
+            </button>
+        </div>
     </p>
     <p>
         @using (Html.BeginForm("ElegirCliente", "Clientes", FormMethod.Post))
         {
-    <p>
-        <div class="row">
-            <div class="col-md-4">
-                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
-
-            </div>
-            <div class="col-md-4">
-               
-                   
+        <p>
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+                </div>
+                <div class="col-md-4">
                     <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
-              
-                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+                    @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+                </div>
             </div>
-        </div>
 
-    </p>
+        </p>
     }
         </p>
         <table class="table">
@@ -79,6 +79,12 @@
             }
 
         </table>
-        @Html.ActionLink("Volver Atras", "Create", "Ingresos", new object { }, new { @class = "nav-link" })</a>
+        <div>
+            @* volver atras desde la pagina en la que estaba*@
+            <div class="badge badge-primary text-wrap" style="width: 6rem;">
+                <a href="http://localhost:63934/Ingresos/Create" style="color:white;text-decoration:none">Volver Atras</a>
+            </div>
+
+        </div>    
     </body>
 </html>

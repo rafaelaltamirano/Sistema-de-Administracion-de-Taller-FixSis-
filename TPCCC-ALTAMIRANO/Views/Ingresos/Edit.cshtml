@@ -92,7 +92,7 @@
             <div class="form-group">
                 <h6>Falla</h6>
                 @Html.TextAreaFor(model => model.FallaCliente, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.FallaCliente "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.FallaCliente, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -135,8 +135,9 @@
         <div class="col-md-3">
             <div class="form-group">
                 <h6>Pecio Final</h6>
-                @Html.EditorFor(model => model.PrecioFinal, new { htmlAttributes = new { @class = "form-control", @placeholder = "Precio final a cobrar" } })
+                @Html.EditorFor(model => model.PrecioFinal, new { htmlAttributes = new { @class = "form-control"} })
                 @Html.ValidationMessageFor(model => model.PrecioFinal, "", new { @class = "text-danger" })
+              
             </div>
         </div>
         <div class="col-md-5">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TPCCC_ALTAMIRANO.Models;
 
 namespace TPCCC_ALTAMIRANO.Controllers
 {
@@ -10,6 +11,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
     {
         public ActionResult Index()
         {
+            
+                //var userName = (Usuario)Session["NombreUsuario"];
             return View();
         }
 

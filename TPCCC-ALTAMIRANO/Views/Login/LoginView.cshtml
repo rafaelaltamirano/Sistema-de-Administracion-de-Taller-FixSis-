@@ -1,0 +1,101 @@
+﻿@model TPCCC_ALTAMIRANO.Models.LoginModel
+@{
+    Layout = "";
+    ViewBag.Title = "Login";
+}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar Sesión</title>
+    <link href="favicon.png" rel="icon" type="image/x-icon">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            background-color: #f1f1f1;
+        }
+
+        .form {
+            margin: 50px auto;
+            padding: 25px 20px;
+            background: #333;
+            box-shadow: 2px 2px 4px #a5a5a5;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+            .form h2 {
+                margin-top: 0px;
+                margin-bottom: 15px;
+                padding-bottom: 5px;
+                border-radius: 10px;
+            }
+
+        .footer {
+            padding: 10px;
+        }
+
+        #tituloLogin {
+            text-align: center;
+            font-size: 70px;
+        }
+
+        #btnIniciar {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="tituloLogin">FixSis</h2>
+    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4 col-sm-offset-3">
+                    <div class="bslf form">
+                        <form id="contact-form" method="post" action="contact.php" role="form">
+                            <h2 class="text-center">Bienvenido</h2>
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.NombreUsuario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre de Usuario" } })
+                                @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.PassUsuario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contraseña" } })
+                                @Html.ValidationMessageFor(model => model.PassUsuario, "", new { @class = "text-danger" })
+                            </div>
+
+                            
+                                @* <label class="checkbox-inline pull-left"><input type="checkbox"> Recordar</label>*@
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group" style="text-align:Center">
+                                    
+                                        <input type="submit" class="btn btn-success btn-send" value="Iniciar Sesión">
+                                    
+                                
+                            </div>
+
+                            <div class="clearfix">
+                                @*<a href="forgot-password.html" class="pull-left">Forgot Password?</a>*@
+                                @* <a href="registration.html" class="pull-right">Create an Account</a>*@
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <div class="text-center footer">&copy; @DateTime.Now.Year - FixSis</div>
+        </div>
+
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

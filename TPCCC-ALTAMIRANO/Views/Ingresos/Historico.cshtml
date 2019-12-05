@@ -8,7 +8,29 @@
 @Html.Partial("~/Views/SubMenuIngreso.cshtml")
 
 
-<h2>Historicos</h2>
+<hr />
+@using (Html.BeginForm("Historico", "Ingresos", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <h5>HISTORICO</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
+                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+            </div>
+        </div>
+    </div>
+
+
+}
 
 <table class="table">
     <tr>
@@ -46,6 +68,8 @@
 
     @foreach (var item in Model)
     {
+        if (item.idEstado == 6)
+        {
         <tr id="@item.idEstado">
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -72,12 +96,12 @@
                 @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;" })
             </td>
             <td>
-               
-               @* <a class="btn btn-danger" onclick="return  DeleteConfirm()" href="/Ingresos/Delete/@item.Id">Eliminar</a>*@
+
+                @* <a class="btn btn-danger" onclick="return  DeleteConfirm()" href="/Ingresos/Delete/@item.Id">Eliminar</a>*@
                 <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Ingresos/Delete/@item.Id"><span class="fa fa-trash"></span></a>
             </td>
         </tr>
+        }
     }
-
 </table>
 
