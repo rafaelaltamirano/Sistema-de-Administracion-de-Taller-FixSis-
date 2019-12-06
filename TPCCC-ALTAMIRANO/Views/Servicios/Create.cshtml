@@ -6,66 +6,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+
+    #btnIngresar {
+        text-align: center
+    }
+</style>
+
+<h2>Nuevo Servicio</h2>
+<hr />
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>Servicio</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+    <form id="contact-form" method="post" action="contact.php" role="form">
+        <div class="messages"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Nombre</h6>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Servicio: Cambio de Pantalla Iphone 6" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    @*<div class="help-block with-errors"></div>*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Descripción</h6>
+                    @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @placeholder = "Breve Descripcion del Servicio " })                   
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>            
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-1">
+                <h6>+</h6>
+                <div class="form-group ">
+                    @Html.ActionLink("Agregar", "Create", "Repuestos", null, new { @class = "btn btn-primary btn-large" })                    
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <h6>Repuesto</h6>
+                    @Html.DropDownList("Id", ViewBag.ListaRepuestos as SelectList, "Seleccionar Repuesto que Utiliza", new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(model => model.Lis, "", new { @class = "text-danger" })*@                   
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Costo</h6>
+                    @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Costo del Servicio: $800" } })
+                    @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Repuesto, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-         
-            @Html.DropDownList("Id", ViewBag.ListaRepuestos as SelectList, "seleccionar", new { @class = "form-control" })
-
-            @Html.ActionLink("Agregar", "Create", "Repuestos", null, new { @class = "btn btn-primary" })
-            @* ViewBag puede ser útil cuando desea transferir datos temporales (que no están incluidos en el modelo) desde el controlador
-                a la vista. ViewBag es una propiedad de tipo dinámico de la clase ControllerBase que es la clase base de todos los 
-                controladores. *@
-
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="form-group ">
+                    <input type="submit" class="btn btn-success btn-send" value="Agregar">
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Costo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    </form>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
+
+
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @* volver atras desde la pagina en la que estaba*@
+    <div class="badge badge-primary text-wrap" style="width: 6rem;">
+        <a href="http://localhost:63934/Servicios/Index" style="color:white;text-decoration:none">Volver Atras</a>
+    </div>
+
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

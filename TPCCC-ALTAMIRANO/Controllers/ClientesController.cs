@@ -28,6 +28,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 if (!String.IsNullOrEmpty(palabra))
                 {
                     cliente = cliente.Where(c => c.Nombre.ToUpper().Contains(palabra.ToUpper()) || c.Apellido.ToUpper().Contains(palabra.ToUpper()) || c.Telefono.ToUpper().Contains(palabra.ToUpper()));
+                    return View(cliente);
                 }
 
                 cliente = cliente.ToList();

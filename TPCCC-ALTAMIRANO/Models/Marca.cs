@@ -10,7 +10,7 @@ namespace TPCCC_ALTAMIRANO.Models
     {
         public int ID { get; set; }
         public string Descripcion { get; set; }
-        public bool Estado { get; set; }
+    
 
         //public IEnumerable <string> SelectedMarcas { get; set; }
         //public IEnumerable <SelectListItem> ListMarcas { get; set; }

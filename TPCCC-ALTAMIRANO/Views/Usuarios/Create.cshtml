@@ -26,7 +26,7 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <form id="contact-form" method="post" action="contact.php" role="form">
         <div class="messages"></div>
-        <div class="row">          
+        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <h6>Nombre</h6>
@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="form-group ">
@@ -107,7 +107,11 @@
 
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @* volver atras desde la pagina en la que estaba*@
+    <div class="badge badge-primary text-wrap" style="width: 6rem;">
+        <a href="http://localhost:63934/Usuarios/Index" style="color:white;text-decoration:none">Volver Atras</a>
+    </div>
+
 </div>
 
 @section Scripts {

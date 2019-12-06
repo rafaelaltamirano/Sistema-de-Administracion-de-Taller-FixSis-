@@ -6,58 +6,94 @@
 }
 
 
-<h2>Create</h2>
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
 
+    #btnIngresar {
+        text-align: center
+    }
+</style>
+
+<h2>Ageregar Repuesto</h2>
+<hr />
+
+    <div class="form-group">
+        <div class="row">
+           
+            <div class="col-md-2">
+                <div class="form-group">
+                    <button type="button" onclick="location.href='@Url.Action("Index", "Repuestos")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                        Listar Repuestos
+                    </button>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form id="contact-form" method="post" action="contact.php" role="form">
+        <div class="messages"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Nombre</h6>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Repuesto: Pantalla Iphone 6" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <h4>Repuesto</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-1">
+                <h6>+</h6>
+                <div class="form-group ">
+                    @Html.ActionLink("Agregar", "Create", "Marcas", null, new { @class = "btn btn-primary btn-large" })
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <h6>Marca</h6>
+                    @Html.DropDownList("Id", ViewBag.ListaMarcas as SelectList, "Seleccionar Marca del Repuesto", new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(model => model.Lis, "", new { @class = "text-danger" })*@
+                </div>
             </div>
         </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.ListBoxFor(model => model.Marca.SelectedMarcas, Model.Marca.ListMarcas, new { @class = "form-control" })*@
-                @Html.DropDownList("Id", ViewBag.ListaMarcas as SelectList, "seleccionar", new { @class = "form-control" })
-                @* @Html.ActionLink( " Agregar", "Create", "Marca", // or to pass some value -> routeValues: new { id = 1 },*@
-                @Html.ActionLink("Agregar", "Create", "Marcas", null, new { @class = "btn btn-primary" })
+        <div class="row">
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Proveedor</h6>
+                    @Html.DropDownList("Id", ViewBag.ListaProveedores as SelectList, "Seleccionar Proveedor del repuesto", new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(model => model.Lis, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="col-md-5 text-center">
+                <div class="form-group " style="position: absolute;bottom: 0;text-align:center;">
+                    <input type="submit" class="btn btn-success btn-send" value="Agregar">
+                </div>
             </div>
         </div>
+    </form>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Proveedor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.ListBoxFor(model => model.Marca.SelectedMarcas, Model.Marca.ListMarcas, new { @class = "form-control" })*@
-                @Html.DropDownList("Id", ViewBag.ListaProveedores as SelectList, "seleccionar", new { @class = "form-control" })
-                @* @Html.ActionLink( " Agregar", "Create", "Marca", // or to pass some value -> routeValues: new { id = 1 },*@
-                @Html.ActionLink("Agregar", "Create", "Proveedores", null, new { @class = "btn btn-primary" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
+
+<div>
+    @* volver atras desde la pagina en la que estaba*@
+    <div class="badge badge-primary text-wrap" style="width: 6rem;">
+        <a href="@ViewBag.returnUrl" style="color:white;text-decoration:none">Volver Atras</a>
+    </div>
+
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

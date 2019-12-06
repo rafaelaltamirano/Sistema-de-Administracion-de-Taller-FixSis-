@@ -5,96 +5,111 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
 
+    #btnIngresar {
+        text-align: center
+    }
+</style>
+
+<h2>Modificar</h2>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Usuario</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form id="contact-form" method="post" action="contact.php" role="form">
+        <div class="messages"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>Nombre</h6>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Usuario" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    @*<div class="help-block with-errors"></div>*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>Apellido</h6>
+                    @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control", @placeholder = "Apellido del Usuario " } })
+                    @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>Alias</h6>
+                    @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Alias" } })
+                    @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Correo Electronico</h6>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email " } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Contraseña</h6>
+                    @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Password " } })
+                    @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TipoUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TipoUsuario, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TipoUsuario, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>Tipo de Usuario</h6>
+                    @Html.EditorFor(model => model.TipoUsuario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese tipo de usuario numerico" } })
+                    @Html.ValidationMessageFor(model => model.TipoUsuario, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dni, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dni, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dni, "", new { @class = "text-danger" })
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>DNI</h6>
+                    @Html.EditorFor(model => model.Dni, new { htmlAttributes = new { @class = "form-control", @placeholder = "Numero de Documento" } })
+                    @Html.ValidationMessageFor(model => model.Dni, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pass, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdSucursal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdSucursal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdSucursal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Estado)
-                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            <div class="col-md-4">
+                <div class="form-group">
+                    <h6>Numero de Sucursal</h6>
+                    @Html.EditorFor(model => model.IdSucursal, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese numero de sucursal" } })
+                    @Html.ValidationMessageFor(model => model.IdSucursal, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="form-group ">
+                    <input type="submit" class="btn btn-success btn-send" value="Ingresar">
+                </div>
             </div>
         </div>
-    </div>
-}
+    </form>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+}
+    <div>
+        @* volver atras desde la pagina en la que estaba*@
+        <div class="badge badge-primary text-wrap" style="width: 6rem;">
+            <a href="http://localhost:63934/Usuarios/Index" style="color:white;text-decoration:none">Volver Atras</a>
+        </div>
+
+    </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

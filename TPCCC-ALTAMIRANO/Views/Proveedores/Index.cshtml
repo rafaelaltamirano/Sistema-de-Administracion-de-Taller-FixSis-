@@ -5,13 +5,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Administrador de Proveedores</h2>
 
-<p>
-    @Html.ActionLink("Nuevo Proveedor", "Create")
-</p>
+<style>
+
+    #tituloH2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+<h2 id="tituloH2">Administrador de Proveedores</h2>
+<hr />
+@using (Html.BeginForm("Index", "Proveedores", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <h5>LISTADO DE PROVEEDORES</h5>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <button type="button" onclick="location.href='@Url.Action("Create", "Proveedores")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                        Nuevo Proveedor
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
+                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+            </div>
+        </div>
+    </div>
+
+
+}
 <table class="table">
     <tr>
+        <th>
+            Nº
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
@@ -19,46 +55,52 @@
             @Html.DisplayNameFor(model => model.Cuit)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Direccion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
+        <th></th>
+        <th></th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cuit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.ActionLink("Modificar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Ver Detalle", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cuit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+            </td>
+            <td>
+                @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+            </td>
+            <td>
+                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Proveedores/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+            </td>
+        </tr>
+    }
 
 </table>

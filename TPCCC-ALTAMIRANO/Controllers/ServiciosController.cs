@@ -18,7 +18,45 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Servicios
         public ActionResult Index()
         {
+            ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "Id", "Nombre");
+          
             return View(db.Servicio.ToList());
+        }
+        [HttpPost]
+        public ActionResult Index(string palabra)
+        {
+
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+            {
+                try
+                {
+                    IEnumerable<Servicio> servicio;
+
+
+                    servicio = db.Servicio;
+
+
+                    if (!String.IsNullOrEmpty(palabra))
+                    {
+                       servicio= servicio.Where(i => i.Nombre.ToUpper().Contains(palabra.ToUpper()) ||  Convert.ToString(i.Id).ToUpper().Contains(palabra.ToUpper())).ToList();
+                        return View(servicio);
+                    }
+
+                    servicio = servicio.ToList();
+
+                    return View(servicio);
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
+
         }
 
         // GET: Servicios/Details/5
@@ -102,28 +140,22 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Servicios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Servicio servicio = db.Servicio.Find(id);
-            if (servicio == null)
-            {
-                return HttpNotFound();
-            }
-            return View(servicio);
-        }
-
-        // POST: Servicios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Servicio servicio = db.Servicio.Find(id);
             db.Servicio.Remove(servicio);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // POST: Servicios/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Servicio servicio = db.Servicio.Find(id);
+        //    db.Servicio.Remove(servicio);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -19,6 +19,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos
         public ActionResult Index()
         {
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View(db.Repuesto.ToList());
         }
 
@@ -40,6 +41,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos/Create
         public ActionResult Create()
         {
+            ViewBag.returnUrl = Request.UrlReferrer;
             ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");
             ViewBag.ListaProveedores = new SelectList(db.Proveedor.ToList(), "ID", "Nombre");
            
@@ -106,28 +108,22 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Repuesto repuesto = db.Repuesto.Find(id);
-            if (repuesto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(repuesto);
-        }
-
-        // POST: Repuestos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Repuesto repuesto = db.Repuesto.Find(id);
             db.Repuesto.Remove(repuesto);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+      
+       // [HttpPost, ActionName("Delete")]
+       //[ValidateAntiForgeryToken]
+       // public ActionResult DeleteConfirmed(int id)
+       // {
+       //    Repuesto repuesto = db.Repuesto.Find(id);
+       //     db.Repuesto.Remove(repuesto);
+       //     db.SaveChanges();
+       //     return RedirectToAction("Index");
+       // }
 
         protected override void Dispose(bool disposing)
         {

@@ -5,30 +5,71 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    #tituloH2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+<h2 id="tituloH2">Listado de Repuestos</h2>
+<hr />
+@using (Html.BeginForm("Index", "Repuestos", FormMethod.Post))
+{
+    <p>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
+                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
+            </div>
+        </div>
+
+    </p>
+}
+        </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+        </th>
+        <th></th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca.Descripcion)
+               
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+            </td>
+            <td>
+                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Repuestos/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+            </td>
+
+        </tr>
+    }
 
 </table>
+<div>
+    @* volver atras desde la pagina en la que estaba*@
+    <div class="badge badge-primary text-wrap" style="width: 6rem;">
+        <a href="@ViewBag.returnUrl" style="color:white;text-decoration:none">Volver Atras</a>
+    </div>
+
+</div> 

@@ -45,26 +45,26 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            
-            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+            try
             {
-
-                try
+                if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
                 {
+
                     return View();
                 }
-                catch (Exception ex)
+
+                else
                 {
-
-                    throw ex;
+                    //si el usuario no es el correcto vuelve a la pag anterior
+                    return Redirect(Request.UrlReferrer.ToString());
                 }
-
+               
+            }            
+            catch (Exception ex)
+            {
+              throw ex;
             }
-            else
-                //si el usuario no es el correcto vuelve a la pag anterior
-                return Redirect(Request.UrlReferrer.ToString());
         }
-
         // POST: Usuarios/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -136,16 +136,11 @@ namespace TPCCC_ALTAMIRANO.Controllers
         {
             if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 Usuario usuario = db.Usuarios.Find(id);
-                if (usuario == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(usuario);
+                string url = TempData["url"].ToString();
+                db.Usuarios.Remove(usuario);
+                db.SaveChanges();
+                return Redirect(url);
             }
             else
                 //si el usuario no es el correcto vuelve a la pag anterior
@@ -153,21 +148,21 @@ namespace TPCCC_ALTAMIRANO.Controllers
         }
 
         // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
-            {
-                Usuario usuario = db.Usuarios.Find(id);
-                db.Usuarios.Remove(usuario);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-                //si el usuario no es el correcto vuelve a la pag anterior
-                return Redirect(Request.UrlReferrer.ToString());
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    if (Convert.ToInt32(Session["TipoUsuario"]) == 1)
+        //    {
+        //        Usuario usuario = db.Usuarios.Find(id);
+        //        db.Usuarios.Remove(usuario);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //        //si el usuario no es el correcto vuelve a la pag anterior
+        //        return Redirect(Request.UrlReferrer.ToString());
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -5,10 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<style>
+    dt {
+        font-size: 20px;
+    }
+
+    dd {
+        font-size: 20px;
+    }
+</style>
+<h2>Detalle </h2>
 
 <div>
-    <h4>Usuario</h4>
+    <h4>Usuario Nº @Model.Nombre</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -36,35 +45,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TipoUsuario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoUsuario)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Dni)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Dni)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Pass)
+           Password
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Pass)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IdSucursal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IdSucursal)
         </dd>
 
         <dt>
@@ -75,9 +60,41 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
+        <dt>
+            Numero De Sucursal
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdSucursal)
+        </dd>
+        <dt>
+           Tipo Usuario
+        </dt>
+
+        <dd>
+            @switch (Model.TipoUsuario)
+            {
+                case 1:
+                    <h7>Administrador</h7>
+                    break;
+                case 2:
+                    <h7>Secretario</h7>
+                    break;
+            }
+        </dd>
+       
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modificar", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-secondary btn-xs", style = "font-size: 0.7em;" })
+
+</p>
+<p>
+    <div>
+        @* volver atras desde la pagina en la que estaba*@
+        <div class="badge badge-primary text-wrap" style="width: 6rem;">
+            <a href="http://localhost:63934/Usuarios/Index" style="color:white;text-decoration:none">Volver Atras</a>
+        </div>
+    </div>
 </p>
