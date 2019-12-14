@@ -39,6 +39,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
                             }).ToList();
                 if (user.FirstOrDefault() != null)
                 {
+
                     Session["IdUsuario"] = user.FirstOrDefault().Id;
                     Session["NombreUsuario"] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.FirstOrDefault().Nombre);
                     Session["NombreApellido"] = user.FirstOrDefault().Apellido;

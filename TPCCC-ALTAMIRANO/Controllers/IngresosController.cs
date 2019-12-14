@@ -279,8 +279,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
                     AuxIngreso.PassEquipo = ingreso.PassEquipo;
                     AuxIngreso.Accesorios = ingreso.Accesorios;
                     AuxIngreso.Presupuesto = ingreso.Presupuesto;
-                    AuxIngreso.idEstado = idEstado;
-                    AuxIngreso.FechaHora = DateTime.Now;
+                    AuxIngreso.idEstado = idEstado;                  
+                    AuxIngreso.FechaIngreso = DateTime.Now;
+                    if(idEstado==2) AuxIngreso.FechaAprobado= DateTime.Now; 
                     db.Ingresos.Add(AuxIngreso);
 
                     db.SaveChanges();
@@ -330,20 +331,76 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,FallaCliente,PassEquipo,Accesorios,Presupuesto,PrecioFinal,FallaDetectada,ReparacionRealizada")] Ingreso ingreso, int idEstado, string returnUrl)
+        public ActionResult Edit([Bind(Include = "Id,NombreCliente,ApellidoCliente,Telefono,EmailCliente,DireccionCliente,Modelo,Marca,FallaCliente,PassEquipo,Accesorios,Presupuesto,PrecioFinal,FallaDetectada,ReparacionRealizada,FechaIngreso,FechaAvisado,FechaReparacion,FechaEntrega,FechaAprobado")] Ingreso ingreso, int idEstado, string returnUrl)
         {
             if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
             {
                 if (ModelState.IsValid)
                 {
-                    var entity = db.Ingresos.Find(ingreso.Id);// entity variable guardar cosas de la base 
 
-                    ingreso.idEstado = idEstado;
+                    var currentIngreso = db.Ingresos.FirstOrDefault(p => p.Id == ingreso.Id);
+                    if (currentIngreso == null)
+                        return HttpNotFound();
 
-                    db.Entry(entity).CurrentValues.SetValues(ingreso);// actualizacion de los datos 
+                    currentIngreso.NombreCliente = ingreso.NombreCliente;
+                    currentIngreso.ApellidoCliente = ingreso.ApellidoCliente;
+                    currentIngreso.Telefono = ingreso.Telefono;
+                    currentIngreso.EmailCliente = ingreso.EmailCliente;
+                    currentIngreso.DireccionCliente = ingreso.DireccionCliente;
+                    currentIngreso.Modelo = ingreso.Modelo;
+                    currentIngreso.Marca = ingreso.Marca;
+                    currentIngreso.FallaCliente = ingreso.FallaCliente;
+                    currentIngreso.PassEquipo = ingreso.PassEquipo;
+                    currentIngreso.Accesorios = ingreso.Accesorios;
+                    currentIngreso.Presupuesto = ingreso.Presupuesto;
+                    currentIngreso.PrecioFinal = ingreso.PrecioFinal;
+                    currentIngreso.FallaDetectada = ingreso.FallaDetectada;
+                    currentIngreso.ReparacionRealizada = ingreso.ReparacionRealizada;
+                    currentIngreso.idEstado = idEstado;
+                    if (idEstado == 3)
+                    {
+                        currentIngreso.FechaAvisado = DateTime.Now; 
+                    }
+                    else if (idEstado == 2)
+                    {
+                        currentIngreso.FechaAprobado = DateTime.Now;// si el cliente lo aprueba y se manda a reparar
+                    }
+                    else if (idEstado == 4)
+                    {
+                        currentIngreso.FechaReparacion = DateTime.Now;// una vez reparado cuando se pasa a entregar
+                    }
+                    else if (idEstado == 6)
+                    {
+                        currentIngreso.FechaEntrega = DateTime.Now;
+                    }
+
+                    // Id and Password are not updated.
 
                     db.SaveChanges();
                     return Redirect(returnUrl);
+
+                    //var entity = db.Ingresos.Find(ingreso.Id);// entity variable guardar cosas de la base 
+                    //entity.FechaIngreso = ingreso.FechaIngreso;
+                    //entity.idEstado = idEstado;
+                    //if(idEstado==3)
+                    //{
+                    //    ingreso.FechaAvisado = DateTime.Now;
+                    //    entity.FechaAvisado = DateTime.Now;
+                    //}
+                    //else if (idEstado == 4)
+                    //{
+                    //    ingreso.FechaReparacion = DateTime.Now;
+                    //    entity.FechaReparacion = DateTime.Now;
+                    //}
+                    //else if (idEstado == 6)
+                    //{
+                    //    ingreso.FechaEntrega = DateTime.Now;
+                    //    entity.FechaEntrega = DateTime.Now;
+                    //}
+                    ////db.Entry(entity).CurrentValues.SetValues(ingreso);// actualizacion de los datos 
+                    //db.Entry(entity).State = EntityState.Modified;
+                    //db.SaveChanges();
+                    //return Redirect(returnUrl);
                 }
                 return View(ingreso);
             }

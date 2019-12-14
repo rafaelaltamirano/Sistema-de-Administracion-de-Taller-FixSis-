@@ -19,10 +19,18 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos
         public ActionResult Index()
         {
+            ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "Id", "Nombre");
             ViewBag.returnUrl = Request.UrlReferrer;
             return View(db.Repuesto.ToList());
         }
 
+        // GET
+        public ActionResult Agregar()
+        {
+            return PartialView("~/ViewsRepuestoModalAdd.aspx");
+        }
+
+        
         // GET: Repuestos/Details/5
         public ActionResult Details(int? id)
         {
@@ -55,23 +63,37 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Repuesto repuesto,[Bind(Include = "ID")] Marca marca, [Bind(Include = "ID")] Proveedor proveedor)// me trae solo el id de marca
         {
-            Repuesto auxRepuesto = new Repuesto();
-            if (ModelState.IsValid)
+            try
             {
-                auxRepuesto.Marca = marca;
-                auxRepuesto.Nombre = repuesto.Nombre;
-                
-                auxRepuesto.Proveedor = proveedor;
-                db.Repuesto.Add(auxRepuesto);
-                db.Marca.Attach(marca);
-                db.Proveedor.Attach(proveedor);// esto hace que marca no sea modificado en la base de datos
-                //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
-                //                                 EntityState.Unchanged);una prueba fallida
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+               
+                Repuesto auxRepuesto = new Repuesto();
+                if (ModelState.IsValid)
+                {
+                    auxRepuesto.Marca = marca;
+                    auxRepuesto.Nombre = repuesto.Nombre;
 
-            return View(repuesto);
+                    auxRepuesto.Proveedor = proveedor;
+                    db.Repuesto.Add(auxRepuesto);
+                    db.Marca.Attach(marca);
+                    db.Proveedor.Attach(proveedor);// esto hace que marca no sea modificado en la base de datos
+                                                   //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
+                                                   //                                 EntityState.Unchanged);una prueba fallida
+                    db.SaveChanges();
+                    ViewBag.successMessage = "Success";
+                    ViewBag.returnUrl = Request.UrlReferrer;
+                    ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");
+                    ViewBag.ListaProveedores = new SelectList(db.Proveedor.ToList(), "ID", "Nombre");
+                    return View();
+                }
+
+                return View(repuesto);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
 
         // GET: Repuestos/Edit/5
@@ -113,17 +135,22 @@ namespace TPCCC_ALTAMIRANO.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // GET: Repuestos/Guardado Exitoso/5
+        public ActionResult CartelExito()
+        {
 
-      
-       // [HttpPost, ActionName("Delete")]
-       //[ValidateAntiForgeryToken]
-       // public ActionResult DeleteConfirmed(int id)
-       // {
-       //    Repuesto repuesto = db.Repuesto.Find(id);
-       //     db.Repuesto.Remove(repuesto);
-       //     db.SaveChanges();
-       //     return RedirectToAction("Index");
-       // }
+            return View(); 
+        }
+
+        // [HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        // public ActionResult DeleteConfirmed(int id)
+        // {
+        //    Repuesto repuesto = db.Repuesto.Find(id);
+        //     db.Repuesto.Remove(repuesto);
+        //     db.SaveChanges();
+        //     return RedirectToAction("Index");
+        // }
 
         protected override void Dispose(bool disposing)
         {

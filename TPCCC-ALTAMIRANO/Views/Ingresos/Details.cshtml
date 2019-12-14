@@ -15,7 +15,7 @@
     <hr />
 
     <form id="contact-form" method="post" action="contact.php" role="form">
-        
+
         <div class="row">
 
             <div class="col-md-4">
@@ -24,13 +24,13 @@
                     <h4> @Html.DisplayFor(model => model.NombreCliente)  @Html.DisplayFor(model => model.ApellidoCliente)</h4>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Telefono</h6>
                     <h4> @Html.DisplayFor(model => model.Telefono)</h4>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Correo Electronico</h6>
                     <h4> @Html.DisplayFor(model => model.EmailCliente)</h4>
@@ -45,13 +45,13 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6> Modelo del Equipo</h6>
                     <h4> @Html.DisplayFor(model => model.Modelo)</h4>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6> Marca del Equipo</h6>
                     <h4> @Html.DisplayFor(model => model.Marca)</h4>
@@ -60,19 +60,19 @@
 
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Falla reportada por el Cliente</h6>
                     <h4> @Html.DisplayFor(model => model.FallaCliente)</h4>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Accesorios</h6>
                     <h4> @Html.DisplayFor(model => model.Accesorios)</h4>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Password</h6>
                     <h4> @Html.DisplayFor(model => model.PassEquipo)</h4>
@@ -80,20 +80,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6> Presupuesto </h6>
                     <h4> @Html.DisplayFor(model => model.Presupuesto)</h4>
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Precio Final</h6>
                     <h4> @Html.DisplayFor(model => model.PrecioFinal)</h4>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-4">
                 <div class="form-group">
                     <h6>Falla Detectada</h6>
                     <h4> @Html.DisplayFor(model => model.FallaDetectada)</h4>
@@ -103,22 +103,60 @@
         </div>
         <div class="row">
 
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <div class="form-group">
                     <h6>Reparacion realizada</h6>
                     <h4> @Html.DisplayFor(model => model.ReparacionRealizada)</h4>
                 </div>
             </div>
-
-            <div class="col-md-3">
+        </div>
+        <div class="row">
+            <div class="col-md-2">
                 <div class="form-group">
-                    <h6> Fecha de Ingreso</h6>
-                    <h3> @Html.DisplayFor(model => model.FechaHora)</h3>
+                    <h6> Ingresó</h6>
+                    <h5> @Html.DisplayFor(model => model.FechaIngreso)</h5>
                 </div>
             </div>
-        </div>
-  
-        @*paso el parámetro returnUrl del método al método [HttpPost] usando un campo oculto en el formulario:*@       
+
+            @if (DateTime.Compare(Model.FechaAprobado, new DateTime(0001, 01, 01, 00, 00, 00)) != 0)
+            {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <h6> Se aprobó</h6>
+                        <h5> @Html.DisplayFor(model => model.FechaAprobado)</h5>
+                    </div>
+                </div>
+            }
+            @if (DateTime.Compare(Model.FechaAvisado, new DateTime(0001, 01, 01, 00, 00, 00)) != 0)
+            {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <h6> Se avisó</h6>
+                        <h5> @Html.DisplayFor(model => model.FechaAvisado)</h5>
+                    </div>
+                </div>
+            }
+            @if (DateTime.Compare(Model.FechaReparacion, new DateTime(0001, 01, 01, 00, 00, 00)) != 0)
+            {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <h6> Se reparó</h6>
+                        <h5> @Html.DisplayFor(model => model.FechaReparacion)</h5>
+                    </div>
+                </div>
+            }
+            @if (DateTime.Compare(Model.FechaEntrega, new DateTime(0001, 01, 01, 00, 00, 00)) != 0)
+            {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <h6> Se entregó</h6>
+                        <h5> @Html.DisplayFor(model => model.FechaEntrega)</h5>
+                    </div>
+                </div>
+            }
+            </div>
+
+            @*paso el parámetro returnUrl del método al método [HttpPost] usando un campo oculto en el formulario:*@
     </form>
 </div>
 <p>

@@ -2,72 +2,80 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "";
 }
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="MiEstilo.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="https://www.trzcacak.rs/myfile/detail/208-2088599_tools-icon-png-transparent-background-fix-icon-png.png" />
 
 
-<style>
-    h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        margin-top: 20px;
-    }
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="jquery-3.4.1.min.js"></script>
+    <style>
+        #btnIngresar {
+            text-align: center
+        }
+    </style>
+</head>
 
-    #btnIngresar {
-        text-align: center
-    }
-</style>
 
-<h2>Ageregar Repuesto</h2>
-<hr />
+<div class="form-group">
+    <div class="row">
 
-    <div class="form-group">
-        <div class="row">
-           
-            <div class="col-md-2">
-                <div class="form-group">
-                    <button type="button" onclick="location.href='@Url.Action("Index", "Repuestos")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
-                        Listar Repuestos
-                    </button>
-                </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <button type="button" onclick="location.href='@Url.Action("Index", "Repuestos")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                    Listar Repuestos
+                </button>
             </div>
-        
         </div>
-    </div>
 
-    <hr />
+    </div>
+</div>
+
+<hr />
+@if (ViewBag.succesMessage != null)
+{
+    <h2>TOodo ok</h2>
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <form id="contact-form" method="post" action="contact.php" role="form">
+    <form id="myForm" method="post" action="contact.php" role="form" onsubmit="openModal()">
         <div class="messages"></div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="form-group">
                     <h6>Nombre</h6>
-                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Repuesto: Pantalla Iphone 6" } })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Repuesto" } })
                     @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
 
                 </div>
             </div>
-            <div class="col-md-1">
-                <h6>+</h6>
-                <div class="form-group ">
-                    @Html.ActionLink("Agregar", "Create", "Marcas", null, new { @class = "btn btn-primary btn-large" })
-                </div>
-            </div>
+
             <div class="col-md-5">
                 <div class="form-group">
                     <h6>Marca</h6>
-                    @Html.DropDownList("Id", ViewBag.ListaMarcas as SelectList, "Seleccionar Marca del Repuesto", new { @class = "form-control" })
+                    @Html.DropDownList("Id", ViewBag.ListaMarcas as SelectList, "Seleccionar Marca", new { @class = "form-control" })
                     @*@Html.ValidationMessageFor(model => model.Lis, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="col-md-1">
+
+                <div class="form-group " style="position: absolute;bottom: 0;text-align:center;">
+                    @Html.ActionLink("Agregar", "Create", "Marcas", null, new { @class = "btn btn-primary btn-large" })
                 </div>
             </div>
         </div>
         <div class="row">
-           
+
             <div class="col-md-6">
                 <div class="form-group">
                     <h6>Proveedor</h6>
@@ -77,7 +85,7 @@
             </div>
             <div class="col-md-5 text-center">
                 <div class="form-group " style="position: absolute;bottom: 0;text-align:center;">
-                    <input type="submit" class="btn btn-success btn-send" value="Agregar">
+                    <input type="submit" class="btn btn-success btn-send" value="Agregar" data-dismiss="modal ">
                 </div>
             </div>
         </div>
@@ -87,13 +95,14 @@
 
 
 
-<div>
-    @* volver atras desde la pagina en la que estaba*@
-    <div class="badge badge-primary text-wrap" style="width: 6rem;">
-        <a href="@ViewBag.returnUrl" style="color:white;text-decoration:none">Volver Atras</a>
-    </div>
 
-</div>
+
 @section Scripts {
+
+    <script src="~/Scripts/ModalScripts/ModalScripts.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
+
 }
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>

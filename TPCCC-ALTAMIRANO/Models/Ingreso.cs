@@ -44,7 +44,19 @@ namespace TPCCC_ALTAMIRANO.Models
         public string ReparacionRealizada { get; set; }
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
-        public DateTime FechaHora { get; set; }
+        public DateTime FechaIngreso{ get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime FechaAvisado { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime FechaAprobado { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime FechaReparacion { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime FechaEntrega { get; set; }
         //public List<Estado> EstadoList { get; set; }
     }
 }

@@ -206,6 +206,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\ModalScripts\ModalScripts.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -279,6 +280,8 @@
     <Content Include="Views\Ingresos\Historico.cshtml" />
     <Content Include="Views\Clientes\ElegirCliente.cshtml" />
     <Content Include="Views\Login\LoginView.cshtml" />
+    <Content Include="Views\GetGameListing.cshtml" />
+    <Content Include="Views\Repuestos\CartelExito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
