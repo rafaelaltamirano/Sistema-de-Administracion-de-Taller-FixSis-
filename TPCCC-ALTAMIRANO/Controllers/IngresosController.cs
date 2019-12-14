@@ -437,6 +437,21 @@ namespace TPCCC_ALTAMIRANO.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
+        [HttpPost]
+        public JsonResult AutoComplete(string prefix)
+        {
+            
+            var marcas = (from marca in db.Marca
+                             where marca.Descripcion.StartsWith(prefix)
+                             select new
+                             {
+                                 label = marca.Descripcion,
+                                 val = marca.ID
+                             }).ToList();
+            return Json(marcas);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
@@ -446,6 +461,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
             }
             base.Dispose(disposing);
         }
+
+
 
     }
 }
