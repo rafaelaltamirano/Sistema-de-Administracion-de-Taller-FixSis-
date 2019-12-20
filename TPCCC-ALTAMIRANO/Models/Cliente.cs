@@ -10,11 +10,11 @@ namespace TPCCC_ALTAMIRANO.Models
         public class Cliente
         {
             public int Id { get; set; }
-            [StringLength(50)]
+            [StringLength(50)]  [Required]
             public string Nombre { get; set; }
-            [StringLength(50)]
+            [StringLength(50)]   [Required]
             public string Apellido { get; set; }
-            [StringLength(50)]
+            [StringLength(50)][Required]
             public string Telefono { get; set; }
             [StringLength(50)]
             public string Direccion { get; set; }
