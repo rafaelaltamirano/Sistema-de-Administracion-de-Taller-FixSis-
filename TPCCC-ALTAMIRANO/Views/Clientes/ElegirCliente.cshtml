@@ -2,89 +2,50 @@
 
 @{
     ViewBag.Title = "ElegirCliente";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "";
 }
 
-<!DOCTYPE html>
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 
-<html>
-<body>
-    <p>
-        <div class="form-group">
-            <button type="button" onclick="location.href='@Url.Action("Create", "Clientes")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
-                Nuevo Cliente
-            </button>
-        </div>
-    </p>
-    <p>
-        @using (Html.BeginForm("ElegirCliente", "Clientes", FormMethod.Post))
+<div class="form-group pull-left">
+    <input type="text" class="search form-control" placeholder="A quien Buscas?">
+</div>
+<table class="table table-striped" id="userTbl">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre </th>
+            <th>Apellido</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
         {
-        <p>
-            <div class="row">
-                <div class="col-md-4">
-                    @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
-                    @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
-                </div>
-            </div>
+        <tr>
+            <td> @item.Id</td>
+            <td> @item.Nombre</td>
+            <td>@item.Apellido</td>
+            <td> @Html.ActionLink("Elegir", "Create", "Ingresos", new { id = item.Id }, new { @class = "btn btn-primary btn-large" }) </td>
+        </tr>
+        }
+    </tbody>
+</table>
 
-        </p>
-         }
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Apellido)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Telefono)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Direccion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Apellido)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Telefono)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Direccion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Elegir", "Create", "Ingresos", new { id = item.Id }, new { @class = "btn btn-primary btn-large" })
-
-                    </td>
-                </tr>
-            }
-
-        </table>
-        <div>
-            @* volver atras desde la pagina en la que estaba*@
-            <div class="badge badge-primary text-wrap" style="width: 6rem;">
-                <a href="http://localhost:63934/Ingresos/Create" style="color:white;text-decoration:none">Volver Atras</a>
-            </div>
-
-        </div>    
-    </body>
-</html>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
+<script>
+    $(document).ready(function () {
+        $('.search').on('keyup', function () {
+            var searchTerm = $(this).val().toLowerCase();
+            $('#userTbl tbody tr').each(function () {
+                var lineStr = $(this).text().toLowerCase();
+                if (lineStr.indexOf(searchTerm) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>

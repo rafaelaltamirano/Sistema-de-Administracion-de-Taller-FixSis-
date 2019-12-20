@@ -5,32 +5,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-       
-        <th></th>
-    </tr>
+    #tituloH2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+<h2 id="tituloH2">Listado de Marcas</h2>
+<hr />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="search form-control" placeholder="Buscar Marca">
+        </div>
+        <div class="col-md-1">
+            <i class="fa fa-search"></i>
+        </div>
+    </div>
+</div>
+<table class="table table-striped" id="userTbl">
+    <thead>
+        <tr>
+            <th>
+                Nombre de la Marca
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+  </thead>
+  <tbody>
 
+        @foreach (var item in Model)
+        {
+      <tr>
+          <td>
+              @Html.DisplayFor(modelItem => item.Descripcion)
+          </td>
+          <td>
+              @Html.ActionLink("Modificar", "Edit", new { id = item.ID }, new { @style = "color:black;font-weight:bold" })
+          </td>
+          <td>
+              <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Marcas/Delete/@item.ID"><span class="fa fa-trash"></span></a>
+          </td>
+
+      </tr>
+        }
+    </tbody>
 </table>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/ModalScripts/ModalScripts.js"></script>
+}

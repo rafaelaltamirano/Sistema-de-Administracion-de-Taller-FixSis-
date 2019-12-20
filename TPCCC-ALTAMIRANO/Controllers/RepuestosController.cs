@@ -19,22 +19,38 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos
         public ActionResult Index()
         {
-            ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "Id", "Nombre");
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "Id", "Nombre");
             ViewBag.returnUrl = Request.UrlReferrer;
             return View(db.Repuesto.ToList());
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET
         public ActionResult Agregar()
         {
-            return PartialView("~/ViewsRepuestoModalAdd.aspx");
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return PartialView("~/ViewsRepuestoModalAdd.aspx");
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         
         // GET: Repuestos/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -44,16 +60,28 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(repuesto);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET: Repuestos/Create
         public ActionResult Create()
         {
-            ViewBag.returnUrl = Request.UrlReferrer;
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.returnUrl = Request.UrlReferrer;
             ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");
             ViewBag.ListaProveedores = new SelectList(db.Proveedor.ToList(), "ID", "Nombre");
            
             return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Repuestos/Create
@@ -63,6 +91,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Repuesto repuesto,[Bind(Include = "ID")] Marca marca, [Bind(Include = "ID")] Proveedor proveedor)// me trae solo el id de marca
         {
+
             try
             {
                
@@ -83,7 +112,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
                     ViewBag.returnUrl = Request.UrlReferrer;
                     ViewBag.ListaMarcas = new SelectList(db.Marca.ToList(), "ID", "Descripcion");
                     ViewBag.ListaProveedores = new SelectList(db.Proveedor.ToList(), "ID", "Nombre");
-                    return View();
+                    return RedirectToAction("Create", "Servicios");
                 }
 
                 return View(repuesto);
@@ -99,7 +128,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -109,6 +140,12 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(repuesto);
+            }
+
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Repuestos/Edit/5
@@ -130,16 +167,29 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Repuestos/Delete/5
         public ActionResult Delete(int? id)
         {
-            Repuesto repuesto = db.Repuesto.Find(id);
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                Repuesto repuesto = db.Repuesto.Find(id);
             db.Repuesto.Remove(repuesto);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
+        }
         // GET: Repuestos/Guardado Exitoso/5
         public ActionResult CartelExito()
         {
-
-            return View(); 
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // [HttpPost, ActionName("Delete")]

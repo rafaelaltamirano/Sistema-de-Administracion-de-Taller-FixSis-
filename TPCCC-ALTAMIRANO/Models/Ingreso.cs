@@ -57,6 +57,7 @@ namespace TPCCC_ALTAMIRANO.Models
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
         public DateTime FechaEntrega { get; set; }
+    
         //public List<Estado> EstadoList { get; set; }
     }
 }

@@ -264,6 +264,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    ViewBag.returnUrl = Request.UrlReferrer;
                     Ingreso AuxIngreso = new Ingreso();
 
 
@@ -441,7 +442,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         public JsonResult AutoComplete(string prefix)
         {
             
-            var marcas = (from marca in db.Marca
+                var marcas = (from marca in db.Marca
                              where marca.Descripcion.StartsWith(prefix)
                              select new
                              {
@@ -449,6 +450,8 @@ namespace TPCCC_ALTAMIRANO.Controllers
                                  val = marca.ID
                              }).ToList();
             return Json(marcas);
+            
+           
         }
 
 

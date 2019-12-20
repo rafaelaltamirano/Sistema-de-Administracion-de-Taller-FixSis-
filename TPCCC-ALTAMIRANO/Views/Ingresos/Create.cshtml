@@ -18,7 +18,27 @@
 @*<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>*@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
-
+<div class="modal fade bd-example-modal-lg" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Elegir Cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-content">
+                        cargando...
+                </div>
+                </div>
+               <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+            </div>
+        </div>
+    </div>
 <h2>Ingreso de Reparación</h2>
 <hr />
 
@@ -31,11 +51,11 @@
         <div class="messages"></div>
         <div class="row">
             <div class="col-md-1">
+               
                 <h6> Traer</h6>
-                <div class="form-group ">
-
-                    @Html.ActionLink("+", "ElegirCliente", "Clientes", null, new { @class = "btn btn-primary btn-large" })
-                </div>
+                <a href="#" class="btn btn-primary btn-large" data-toggle="modal" data-target="#basicModal">
+                    +
+                </a>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
@@ -89,10 +109,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <h6>Marca</h6>
-                   
+
 
                     @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @id = "txtCustomer", @placeholder = "Ingrese Marca del Equipo" } })
-                   @* <input type="hidden" id="hfCustomer" name="CustomerId" />*@
+                    @* <input type="hidden" id="hfCustomer" name="CustomerId" />*@
                     @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -126,7 +146,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group">
-                    <h6>Presupuesto</h6>
+                    <h6>Presupuesto Aproximado</h6>
                     @Html.EditorFor(model => model.Presupuesto, new { htmlAttributes = new { @class = "form-control", @placeholder = "Prespuesto Aproximado" } })
                     @Html.ValidationMessageFor(model => model.Presupuesto, "", new { @class = "text-danger" })
                 </div>
@@ -166,6 +186,8 @@
 
 @section Scripts {
 
-    <script src="~/Scripts/ModalScripts/ModalScripts.js"></script>
-
+<script src="~/Scripts/ModalScripts/ModalScripts.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>

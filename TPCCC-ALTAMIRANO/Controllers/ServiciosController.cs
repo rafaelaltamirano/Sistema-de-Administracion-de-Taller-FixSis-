@@ -18,9 +18,17 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Servicios
         public ActionResult Index()
         {
-            ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "Id", "Nombre");
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+
+                ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "Id", "Nombre");
           
             return View(db.Servicio.ToList());
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
         [HttpPost]
         public ActionResult Index(string palabra)
@@ -62,7 +70,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Servicios/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -72,13 +82,25 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(servicio);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET: Servicios/Create
         public ActionResult Create()
         {
-            ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "ID", "Nombre");
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.ListaRepuestos = new SelectList(db.Repuesto.ToList(), "ID", "Nombre");
             return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Servicios/Create
@@ -87,29 +109,49 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]       
         public ActionResult Create(Servicio servicio, [Bind(Include = "ID")] Repuesto repuesto)// me trae solo el id de marca
+
         {
-            Servicio auxServicio = new Servicio();
-            if (ModelState.IsValid)
-            {
-                auxServicio.Nombre = servicio.Nombre;
-                auxServicio.Descripcion = servicio.Descripcion;
-                auxServicio.Repuesto = repuesto;
-                auxServicio.Costo = servicio.Costo;
+            //para guardar servicio en caso de pasar a otra pagina, pausado por que el navegador resuelve igual
+           // if (!string.IsNullOrEmpty(save))
+           // {
+           //     Servicio auxServicio = new Servicio();
+           //     auxServicio = Session["auxServicio"] as Servicio;
+           //     Session["nombreServicioAux"] = servicio.Nombre;
+           //     Session["descripcionServicioAux"] = servicio.Descripcion;
+           //     Session["costoServicioAux"] = servicio.Costo;
+           //     Session["IdRepuestoServicioAux"] = repuesto.Id;             
+           //     return RedirectToAction("Create", "Repuestos");              
+           // }
+           //else   
+            //{
+                Servicio auxServicio = new Servicio();
+                if (ModelState.IsValid)
+                {
+                    auxServicio.Nombre = servicio.Nombre;
+                    auxServicio.Descripcion = servicio.Descripcion;
+                    auxServicio.Repuesto = repuesto;
+                    auxServicio.Costo = servicio.Costo;
 
-                db.Servicio.Add(auxServicio);
-                db.Repuesto.Attach(repuesto);// esto hace que marca no sea modificado en la base de datos
-                //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
-                //                                 EntityState.Unchanged);una prueba fallida
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                    db.Servicio.Add(auxServicio);
+                    db.Repuesto.Attach(repuesto);// esto hace que marca no sea modificado en la base de datos
+                                                 //db.ObjectStateManager.ChangeObjectState(repuesto.Marca,
+                                                 //                                 EntityState.Unchanged);una prueba fallida
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(repuesto);
+                return View(repuesto);
+            //}
+            
         }
+        
+
         // GET: Servicios/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -119,6 +161,11 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(servicio);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Servicios/Edit/5
@@ -126,7 +173,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Descripcion")] Servicio servicio)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Descripcion,Costo")] Servicio servicio, [Bind(Include = "ID")] Repuesto repuesto)
         {
             if (ModelState.IsValid)
             {
@@ -140,10 +187,17 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Servicios/Delete/5
         public ActionResult Delete(int? id)
         {
-            Servicio servicio = db.Servicio.Find(id);
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                Servicio servicio = db.Servicio.Find(id);
             db.Servicio.Remove(servicio);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Servicios/Delete/5

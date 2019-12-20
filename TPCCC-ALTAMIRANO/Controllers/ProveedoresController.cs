@@ -18,7 +18,14 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Proveedores
         public ActionResult Index()
         {
-            return View(db.Proveedor.ToList());
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return View(db.Proveedor.ToList());
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
         [HttpPost]
         public ActionResult Index(string palabra)
@@ -43,7 +50,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Proveedores/Details/5
         public ActionResult Details(int? id)
         {
-            ViewBag.returnUrl = Request.UrlReferrer;
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.returnUrl = Request.UrlReferrer;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -54,13 +63,27 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(proveedor);
+            }
+
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET: Proveedores/Create
         public ActionResult Create()
         {
-            ViewBag.returnUrl = Request.UrlReferrer;
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+
+                ViewBag.returnUrl = Request.UrlReferrer;
             return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Proveedores/Create
@@ -83,7 +106,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Proveedores/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.returnUrl = Request.UrlReferrer;
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.returnUrl = Request.UrlReferrer;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,6 +119,11 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(proveedor);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Proveedores/Edit/5
@@ -116,10 +146,17 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Proveedores/Delete/5
         public ActionResult Delete(int? id)
         {
-            Proveedor proveedor = db.Proveedor.Find(id);
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                Proveedor proveedor = db.Proveedor.Find(id);
             db.Proveedor.Remove(proveedor);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         //// POST: Proveedores/Delete/5

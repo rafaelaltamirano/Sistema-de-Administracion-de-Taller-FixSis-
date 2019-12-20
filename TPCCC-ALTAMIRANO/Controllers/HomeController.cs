@@ -11,23 +11,43 @@ namespace TPCCC_ALTAMIRANO.Controllers
     {
         public ActionResult Index()
         {
-            
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
                 //var userName = (Usuario)Session["NombreUsuario"];
-            return View();
+                return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.Message = "Your application description page.";
 
             return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.Message = "Your contact page.";
 
             return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
     }
 }

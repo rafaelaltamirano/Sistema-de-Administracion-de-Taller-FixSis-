@@ -18,7 +18,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [HttpPost]
         public ActionResult ElegirCliente(string palabra)
         {
-            try
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                try
             {
                 IEnumerable<Cliente> cliente;
 
@@ -41,18 +43,37 @@ namespace TPCCC_ALTAMIRANO.Controllers
 
                 throw ex;
             }
-            
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
         // GET: Clientes/Elegr Cliente
         public ActionResult ElegirCliente()
         {
-            return View(db.Cliente.ToList());
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+
+                return View(db.Cliente.ToList());
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Cliente.ToList());
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return View(db.Cliente.ToList());
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
         [HttpPost]
         public ActionResult Index(string palabra)
@@ -77,22 +98,36 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
             {
+                 if (id == null)
+              {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+              }
+              Cliente cliente = db.Cliente.Find(id);
+              if (cliente == null)
+              {
+                 return HttpNotFound();
+              }
+              return View(cliente);
+             }
+             else
             {
-                return HttpNotFound();
+                return Redirect("/Login/LoginView");
             }
-            return View(cliente);
         }
 
         // GET: Clientes/Create
         public ActionResult Create()
         {
-            return View();
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Clientes/Create
@@ -102,6 +137,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Telefono,Direccion,Email")] Cliente cliente)
         {
+
             if (ModelState.IsValid)
             {
                 db.Cliente.Add(cliente);
@@ -115,7 +151,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Clientes/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.returnUrl = Request.UrlReferrer;
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                ViewBag.returnUrl = Request.UrlReferrer;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -126,6 +164,11 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(cliente);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Clientes/Edit/5
@@ -147,10 +190,17 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Clientes/Delete/5
         public ActionResult Delete(int? id)
         {
-            Cliente cliente = db.Cliente.Find(id);
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                Cliente cliente = db.Cliente.Find(id);
             db.Cliente.Remove(cliente);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
             //if (id == null)
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -176,11 +226,15 @@ namespace TPCCC_ALTAMIRANO.Controllers
         
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            
+           
+                if (disposing)
             {
                 db.Dispose();
             }
             base.Dispose(disposing);
+            
+           
         }
 
 

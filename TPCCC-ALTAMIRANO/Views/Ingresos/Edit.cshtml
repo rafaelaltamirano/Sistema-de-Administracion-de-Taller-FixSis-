@@ -119,15 +119,22 @@
         <div class="col-md-6">
             <div class="form-group">
                 <h6>Reparación realizada</h6>
-                @Html.TextAreaFor(model => model.ReparacionRealizada, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @placeholder= "Reparación realizada por el tecnico" })
-                @Html.ValidationMessageFor(model => model.ReparacionRealizada, "", new { @class = "text-danger" })
+                @if (Model.idEstado == 1 || Model.idEstado == 3)
+                {
+                @Html.TextAreaFor(model => model.ReparacionRealizada, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @placeholder = "Reparación realizada por el tecnico", @readonly = "readonly" })
+                }
+                else
+                {
+                    @Html.TextAreaFor(model => model.ReparacionRealizada, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @placeholder = "Reparación realizada por el tecnico" })
+                }
+                    @Html.ValidationMessageFor(model => model.ReparacionRealizada, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <h6>Presupuesto</h6>
+                <h6>Presupuesto Aproximado</h6>
                 @Html.EditorFor(model => model.Presupuesto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Presupuesto, "", new { @class = "text-danger" })
             </div>

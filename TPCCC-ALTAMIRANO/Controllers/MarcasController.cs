@@ -18,13 +18,24 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Marcas
         public ActionResult Index()
         {
-            return View(db.Marca.ToList());
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return View(db.Marca.ToList());
+            }
+
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET: Marcas/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -34,12 +45,25 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(marca);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // GET: Marcas/Create
         public ActionResult Create()
         {
-            return View();
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
+
         }
 
         // POST: Marcas/Create
@@ -53,7 +77,7 @@ namespace TPCCC_ALTAMIRANO.Controllers
             {
                 db.Marca.Add(marca);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Repuestos");
             }
 
             return View(marca);
@@ -62,7 +86,9 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Marcas/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
+            {
+                if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -72,6 +98,11 @@ namespace TPCCC_ALTAMIRANO.Controllers
                 return HttpNotFound();
             }
             return View(marca);
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
 
         // POST: Marcas/Edit/5
@@ -93,28 +124,29 @@ namespace TPCCC_ALTAMIRANO.Controllers
         // GET: Marcas/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Convert.ToInt32(Session["TipoUsuario"]) == 1 || Convert.ToInt32(Session["TipoUsuario"]) == 2)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Marca marca = db.Marca.Find(id);
-            if (marca == null)
-            {
-                return HttpNotFound();
-            }
-            return View(marca);
-        }
-
-        // POST: Marcas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Marca marca = db.Marca.Find(id);
+                Marca marca = db.Marca.Find(id);
             db.Marca.Remove(marca);
             db.SaveChanges();
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return Redirect("/Login/LoginView");
+            }
         }
+
+        // POST: Marcas/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Marca marca = db.Marca.Find(id);
+        //    db.Marca.Remove(marca);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

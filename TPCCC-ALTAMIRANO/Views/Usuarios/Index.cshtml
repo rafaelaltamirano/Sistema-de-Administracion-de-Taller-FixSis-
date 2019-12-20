@@ -80,13 +80,18 @@
                 case 2:
                     <h7>Secretario</h7>
                     break;
+                case 3:
+                    <h7>Tecnico</h7>
+                    break;
+
             }
-         </td>
+        </td>
 
         <td>
             @Html.DisplayFor(modelItem => item.Dni)
         </td>
-       
+
+
         <td>
             @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
         </td>

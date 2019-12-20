@@ -18,117 +18,94 @@
     }
 </style>
 
-<div class="modal fade bd-example-modal-lg" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Nuevo Repuesto</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+<h2>Nuevo Servicio</h2>
+<hr />
+<div class="form-group">
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <button type="button" onclick="location.href='@Url.Action("Index", "Servicios")'" class="btn btn-outline-secondary btn-xs" style="font-size: 0.7em;">
+                    Listar Servicios
                 </button>
             </div>
-            <div class="modal-body">
-                <div id="modal-content">
-                    cargando...
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
-                @*<button type="button" class="btn btn-primary">Save changes</button>*@
-            </div>
         </div>
+
     </div>
 </div>
-    <h2>Nuevo Servicio</h2>
-    <hr />
 
+<hr />
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <form id="contact-form" method="post" action="contact.php" role="form">
-            <div class="messages"></div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <h6>Nombre</h6>
-                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Servicio: Cambio de Pantalla Iphone 6" } })
-                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                        @*<div class="help-block with-errors"></div>*@
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <h6>Descripción</h6>
-                        @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @placeholder = "Breve Descripcion del Servicio " })
-                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                    </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form id="contact-form" method="post" action="contact.php" role="form">
+        <div class="messages"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Nombre</h6>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del Servicio: Cambio de Pantalla Iphone 6" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    @*<div class="help-block with-errors"></div>*@
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <h6>+</h6>
-                    <div class="form-group ">
-
-
-
-                        @*<button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>*@
-                        @*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>*@
-                        @*<a class="btn btn-default" href="@Url.Action("Agregar", "Repuestos")" id="register">modal</a>*@
-                        @* <button type="button" data-toggle="modal" data-target="ModalRepuesto">Launch modal</button>*@
-                        @*@Html.ActionLink("Agregar", "Create", "Repuestos", null, new { @class = "btn  08btn-primary btn-large" })*@
-                    </div>
-
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Descripción</h6>
+                    @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", rows = "2", style = "width: 100%; max-width: 100%;", @placeholder = "Breve Descripcion del Servicio " })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                 </div>
+            </div>
+        </div>
+        <div class="row">
 
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <h6>Repuesto</h6>
-                        @Html.DropDownList("Id", ViewBag.ListaRepuestos as SelectList, "Seleccionar Repuesto que Utiliza", new { @class = "form-control" })
-                        @*@Html.ValidationMessageFor(model => model.Lis, "", new { @class = "text-danger" })*@
-                    </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <h6>Repuesto</h6>
+                    @Html.DropDownList("Id", ViewBag.ListaRepuestos as SelectList, "Seleccionar Repuesto que Utiliza", new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(model => model.Lis, "", new { @class = "text-danger" })*@
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <h6>Costo</h6>
-                        @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Costo del Servicio: $800" } })
-                        @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="col-md-1">
+
+                <div class="form-group " style="position: absolute;bottom: 0;text-align:center;">
+
+                    @Html.ActionLink("Agregar", "Create", "Repuestos", null, new { @class = "btn  btn-primary btn-large" })
                 </div>
 
             </div>
 
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="form-group ">
-                        <input type="submit" class="btn btn-success btn-send" value="Agregar">
-                    </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6>Costo</h6>
+                    @Html.EditorFor(model => model.Costo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Costo del Servicio: $800" } })
+                    @Html.ValidationMessageFor(model => model.Costo, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </form>
 
-    }
-
-        <a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">
-            Click to open Modal
-        </a>
-
-    <div>
-        @* volver atras desde la pagina en la que estaba*@
-        <div class="badge badge-primary text-wrap" style="width: 6rem;">
-            <a href="http://localhost:63934/Servicios/Index" style="color:white;text-decoration:none">Volver Atras</a>
         </div>
 
-    </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="form-group ">
+                    <input type="submit" class="btn btn-success btn-send" value="Agregar">
+                </div>
+            </div>
+        </div>
+    </form>
+
+}
 
 
-    @section Scripts {
 
-        <script src="~/Scripts/ModalScripts/ModalScripts.js"></script>
-        @Scripts.Render("~/bundles/jqueryval")
 
-    }
 
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+@section Scripts {
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

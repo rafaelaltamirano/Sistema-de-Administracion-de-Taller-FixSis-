@@ -35,68 +35,79 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-4">
-                @Html.TextBox("palabra", null, new { @class = "form-control", @placeholder = "Buscar" })
-            </div>
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary btn-large"><i class="fa fa-search"></i></button>
-                @*<input type="submit" value="Filter" class="btn btn-primary btn-large"></input>*@
-            </div>
+            
+                    <div class="col-md-3">
+                        <input type="text" class="search form-control" placeholder="Buscar Servicio">
+                    </div>
+                    <div class="col-md-1">
+                        <i class="fa fa-search"></i>
+                    </div>
+             
+            
         </div>
     </div>
 
 }
-<table class="table">
-    <tr>
-        <th>
-            Nº
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Costo)
-        </th>
-        <th>
-            Repuesto Usado
-        </th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
+    <table class="table table-striped" id="userTbl">
+        <thead>
+            <tr>
+                <th>
+                    Nº
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Costo)
+                </th>
+                <th>
+                    Repuesto Usado
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        <thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
 
-    @foreach (var item in Model)
-    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Costo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Repuesto.Nombre)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
+                    </td>
+                    <td>
+                        <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Servicios/Delete/@item.Id"><span class="fa fa-trash"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Costo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Repuesto.Nombre)
-            </td>
-            <td>
-                @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
-            </td>
-            <td>
-                @Html.ActionLink("Ver Detalle", "Details", new { id = item.Id }, new { @style = "color:black;font-weight:bold" })
-            </td>
-            <td>
-                <a class=" btn btn-danger" onclick="return  DeleteConfirm()" href="/Servicios/Delete/@item.Id"><span class="fa fa-trash"></span></a>
-            </td>
-        </tr>
-    }
 
-</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ModalScripts/ModalScripts.js"></script>
+}
